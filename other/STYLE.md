@@ -12,7 +12,8 @@
    1. Othe libraries
 1. Stores
 1. Imports from other files
-1. Interfaces
-1. Constants
-1. Enums
+   1. Functions
+   1. Interfaces
+   1. Constants
+   1. Enums
 1. Components

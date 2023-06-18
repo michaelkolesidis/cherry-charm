@@ -11,7 +11,7 @@ const Game = () => {
 
   useEffect(() => {
     // if (slotMachineRef.current) {
-    console.log(slotMachineRef.current);
+    // console.log(slotMachineRef.current);
     // }
   }, [slotMachineRef]);
 
