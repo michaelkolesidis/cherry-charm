@@ -1,9 +1,10 @@
 import { useRef, useEffect, forwardRef, useImperativeHandle } from "react";
-import Reel from "./Reel";
-import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
+import * as THREE from "three";
 import { WHEEL_SEGMENT } from "./utils/constants";
 import { Fruit } from "./utils/enums";
+import Reel from "./Reel";
+
 
 interface CustomGroup extends THREE.Group {
   reelSegment?: number;
@@ -181,6 +182,7 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
       <Reel
         ref={reelRefs[0]}
         value={value[0]}
+        map={0}
         position={[-7, 0, 0]}
         rotation={[0, 0, 0]}
         scale={[10, 10, 10]}
@@ -192,6 +194,7 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
       <Reel
         ref={reelRefs[1]}
         value={value[1]}
+        map={1}
         position={[0, 0, 0]}
         rotation={[0, 0, 0]}
         scale={[10, 10, 10]}
@@ -203,6 +206,7 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
       <Reel
         ref={reelRefs[2]}
         value={value[2]}
+        map={2}
         position={[7, 0, 0]}
         rotation={[0, 0, 0]}
         scale={[10, 10, 10]}
