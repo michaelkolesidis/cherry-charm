@@ -9,7 +9,7 @@ import Game from "./Game";
 const App = () => {
   return (
     <>
-      <Canvas camera={{ fov: 75, position: [0, 5, 25] }}>
+      <Canvas camera={{ fov: 75, position: [0, 0, 30] }}>
         <Interface />
         <Game />
       </Canvas>

@@ -19,26 +19,22 @@ type GLTFResult = GLTF & {
 type ReelProps = JSX.IntrinsicElements["group"] & {
   value?: number;
   reelSegment: number;
-  reelPosition?: number;
-  reelSpinUntil?: number;
-  reelStopSegment?: number;
   map: number;
 };
 
 const Reel = forwardRef(
   (props: ReelProps, ref: ForwardedRef<THREE.Group>): JSX.Element => {
+    const {
+      reelSegment,
+    } = props;
     const { nodes, materials } = useGLTF("/models/reel.glb") as GLTFResult;
-
-    const { reelSegment, reelPosition, reelSpinUntil, reelStopSegment } = props;
-
     const reel = useRef<THREE.Group>(null);
 
+    // Color maps
     const colorMap0 = useLoader(THREE.TextureLoader, "/images/reel_0.png");
     const colorMap1 = useLoader(THREE.TextureLoader, "/images/reel_1.png");
     const colorMap2 = useLoader(THREE.TextureLoader, "/images/reel_2.png");
-
     let activeColorMap;
-
     switch (props.map) {
       case 0:
         activeColorMap = colorMap0;
@@ -61,12 +57,7 @@ const Reel = forwardRef(
           rotation={[reelSegment * WHEEL_SEGMENT - 0.2, 0, -Math.PI / 2]}
           scale={[1, 0.29, 1]}
         >
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Cylinder.geometry}
-            // material={materials["Material.001"]}
-          >
+          <mesh castShadow receiveShadow geometry={nodes.Cylinder.geometry}>
             <meshStandardMaterial map={activeColorMap} />
           </mesh>
           <mesh
@@ -82,5 +73,4 @@ const Reel = forwardRef(
 );
 
 useGLTF.preload("/models/reel.glb");
-
 export default Reel;
