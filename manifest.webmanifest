@@ -1,0 +1,20 @@
+{
+  "name": "Cherry Charm",
+  "short_name": "Cherry Charm",
+  "display": "standalone",
+  "theme_color": "#121215",
+  "background_color": "#121215",
+  "description": "An online 3D slot machine game.",
+  "icons": [
+    {
+      "src": "icons/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
