@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
-import { KeyboardControls, OrthographicCamera } from "@react-three/drei";
+// import { KeyboardControls, OrthographicCamera } from "@react-three/drei";
 // import useGame from "./stores/useGame";
 // import checkFirstTimeVisit from "./utils/functions/checkFirstTimeVisit";
 import Interface from "./interface/Interface";
