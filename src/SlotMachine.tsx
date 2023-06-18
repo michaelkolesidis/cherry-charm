@@ -2,7 +2,9 @@ import { useRef, useEffect, forwardRef, useImperativeHandle } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { WHEEL_SEGMENT } from "./utils/constants";
+import { Fruit } from "./utils/enums";
 import Reel from "./Reel";
+
 
 interface CustomGroup extends THREE.Group {
   reelSegment?: number;
@@ -56,6 +58,92 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
   //   }
   // })
 
+  let segmentToFruit = (reel: number, segment: number) => {
+    switch (reel) {
+      case 0:
+        switch (segment) {
+          case 0:
+            return Fruit.cherry;
+
+          case 1:
+            return Fruit.lemon;
+
+          case 2:
+            return Fruit.apple;
+
+          case 3:
+            return Fruit.lemon;
+
+          case 4:
+            return Fruit.banana;
+
+          case 5:
+            return Fruit.banana;
+
+          case 6:
+            return Fruit.lemon;
+
+          case 7:
+            return Fruit.lemon;
+        }
+        break;
+      case 1:
+        switch (segment) {
+          case 0:
+            return Fruit.lemon;
+
+          case 1:
+            return Fruit.apple;
+
+          case 2:
+            return Fruit.lemon;
+
+          case 3:
+            return Fruit.lemon;
+
+          case 4:
+            return Fruit.cherry;
+
+          case 5:
+            return Fruit.apple;
+
+          case 6:
+            return Fruit.banana;
+
+          case 7:
+            return Fruit.lemon;
+        }
+        break;
+      case 2:
+        switch (segment) {
+          case 0:
+            return Fruit.lemon;
+
+          case 1:
+            return Fruit.apple;
+
+          case 2:
+            return Fruit.lemon;
+
+          case 3:
+            return Fruit.apple;
+
+          case 4:
+            return Fruit.cherry;
+
+          case 5:
+            return Fruit.lemon;
+
+          case 6:
+            return Fruit.banana;
+
+          case 7:
+            return Fruit.lemon;
+        }
+        break;
+    }
+  };
+
   useFrame(() => {
     for (let i = 0; i < reelRefs.length; i++) {
       const reel = reelRefs[i].current;
@@ -74,7 +162,10 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
             reel.reelSegment = Math.floor(reel.rotation.x / WHEEL_SEGMENT);
           } else if (reel.rotation.x >= targetRotationX) {
             // The reel stopped spinning at the desired segment
-            console.log(`Reel ${i + 1} stopped at segment ${reel.reelSegment}`);
+            
+            let fruit = segmentToFruit(i, reel.reelSegment )
+
+            console.log(`Reel ${i + 1} stopped at segment ${reel.reelSegment} ${fruit}`);
             reel.reelSpinUntil = undefined; // Reset reelSpinUntil to stop further logging
           }
         }
@@ -96,9 +187,9 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
         rotation={[0, 0, 0]}
         scale={[10, 10, 10]}
         reelSegment={0}
-        reelPosition={0}
-        reelSpinUntil={0}
-        reelStopSegment={0}
+        // reelPosition={0}
+        // reelSpinUntil={0}
+        // reelStopSegment={0}
       />
       <Reel
         ref={reelRefs[1]}
