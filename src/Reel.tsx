@@ -22,6 +22,7 @@ type ReelProps = JSX.IntrinsicElements["group"] & {
   reelPosition?: number;
   reelSpinUntil?: number;
   reelStopSegment?: number;
+  map: number;
 };
 
 const Reel = forwardRef(
@@ -32,7 +33,23 @@ const Reel = forwardRef(
 
     const reel = useRef<THREE.Group>(null);
 
-    const colorMap = useLoader(THREE.TextureLoader, "/images/reel.png");
+    const colorMap0 = useLoader(THREE.TextureLoader, "/images/reel_0.png");
+    const colorMap1 = useLoader(THREE.TextureLoader, "/images/reel_1.png");
+    const colorMap2 = useLoader(THREE.TextureLoader, "/images/reel_2.png");
+
+    let activeColorMap;
+
+    switch (props.map) {
+      case 0:
+        activeColorMap = colorMap0;
+        break;
+      case 1:
+        activeColorMap = colorMap1;
+        break;
+      case 2:
+        activeColorMap = colorMap2;
+        break;
+    }
 
     useFrame(() => {
       if (reel.current) reel.current.rotation.x += 0.025;
@@ -50,7 +67,7 @@ const Reel = forwardRef(
             geometry={nodes.Cylinder.geometry}
             // material={materials["Material.001"]}
           >
-            <meshStandardMaterial map={colorMap} />
+            <meshStandardMaterial map={activeColorMap} />
           </mesh>
           <mesh
             castShadow
