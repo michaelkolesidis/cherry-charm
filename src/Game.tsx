@@ -1,13 +1,10 @@
-import { useRef } from "react";
-import { useFrame } from "@react-three/fiber";
+import { useEffect, useRef } from "react";
+// import { useFrame } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import { Perf } from "r3f-perf";
 // import useGame from "./stores/useGame";
-// import { levels } from "./level/data/levels";
 import Lights from "./lights/Lights";
-// import Level from "./level/Level";
 import SlotMachine from "./SlotMachine";
-import { useEffect } from "react";
 
 const Game = () => {
   const slotMachineRef = useRef();
