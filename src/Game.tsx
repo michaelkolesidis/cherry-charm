@@ -3,6 +3,7 @@ import { useEffect, useRef } from "react";
 import { OrbitControls } from "@react-three/drei";
 import { Perf } from "r3f-perf";
 import useGame from "./stores/store";
+import endgame from "./utils/functions/endgame";
 import Lights from "./lights/Lights";
 import SlotMachine from "./SlotMachine";
 
@@ -13,15 +14,7 @@ const Game = () => {
   const slotMachineRef = useRef();
 
   useEffect(() => {
-    if (
-      fruit0 === fruit1 &&
-      fruit0 === fruit2 &&
-      fruit0 !== "" &&
-      fruit1 !== "" &&
-      fruit2 !== ""
-    ) {
-      console.log("YOU WON!!!");
-    }
+    endgame(fruit0, fruit1, fruit2);
   }, [fruit0, fruit1, fruit2]);
 
   useEffect(() => {

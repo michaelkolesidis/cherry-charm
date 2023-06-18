@@ -1,2 +1,14 @@
 .interface {
+  pointer-events: none;
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 1em;
+}
+
+.stats {
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.2em;
 }
