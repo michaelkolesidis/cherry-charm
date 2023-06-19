@@ -2,7 +2,13 @@
 // Licensed under the GNU Affero General Public License v3.0.
 // https://www.gnu.org/licenses/gpl-3.0.html
 
-import { useRef, useEffect, forwardRef, useImperativeHandle } from "react";
+import {
+  useRef,
+  useEffect,
+  // useState,
+  forwardRef,
+  useImperativeHandle,
+} from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import useGame from "./stores/store";
@@ -32,7 +38,7 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
     useRef<ReelGroup>(null),
   ];
 
-  useEffect(() => {
+  const spinSlotMachine = () => {
     const min = 15;
     const max = 30;
     const getRandomStopSegment = () =>
@@ -51,7 +57,39 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
     spinReel(0);
     spinReel(1);
     spinReel(2);
+
+    // addSpin();
+  };
+
+  useEffect(() => {
+    spinSlotMachine();
   }, []);
+
+  // document.addEventListener("keydown", (e) => {
+  //   if (e.code === "Space") {
+  //     window.location.reload();
+  //   }
+  // });
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.code === "Space") {
+        spinSlotMachine();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+
+  // const [timesSpinned, setTimesSpinned] = useState(1);
+
+  // const addSpin = () => {
+  //   setTimesSpinned(timesSpinned + 1);
+  // };
 
   useFrame(() => {
     for (let i = 0; i < reelRefs.length; i++) {
