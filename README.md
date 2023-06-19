@@ -1,4 +1,4 @@
-# 🍒 Cherry Charm 🍒
+![Cherry Charm Logo](./public/images/logo.png)
 
 **An online 3D slot machine game.**
 
@@ -43,18 +43,9 @@ A non-exhaustive list of all the software that was used during the development o
 
 ## License
 
-Copyright (c) 2023 Michael Kolesidis - All Rights Reserved.
+<a href="https://www.gnu.org/licenses/agpl-3.0.html"><img src="https://upload.wikimedia.org/wikipedia/commons/0/06/AGPLv3_Logo.svg" height="100px" /></a>
 
-THE CONTENTS OF THIS PROJECT ARE PROPRIETARY AND CONFIDENTIAL.
-UNAUTHORIZED COPYING, TRANSFERRING OR REPRODUCTION OF THE CONTENTS OF THIS PROJECT, VIA ANY MEDIUM IS STRICTLY PROHIBITED.
+Copyright (c) 2023 Michael Kolesidis<br>
+Licensed under the [GNU Affero General Public License v3.0](https://www.gnu.org/licenses/agpl-3.0.html).
 
-The receipt or possession of the source code and/or any parts thereof does not convey or imply
-any right to use them for any purpose other than the purpose for which they were provided to you.
-
-The software is provided "AS IS", without warranty of any kind, express or implied, including but not limited to
-the warranties of merchantability, fitness for a particular purpose and non infringement.
-In no event shall the authors or copyright holders be liable for any claim, damages or other liability,
-whether in an action of contract, tort or otherwise, arising from, out of or in connection with the software
-or the use or other dealings in the software.
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+🍒

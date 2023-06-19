@@ -1,11 +1,23 @@
+// Copyright (c) 2023 Michael Kolesidis <michael.kolesidis@gmail.com>
+// Licensed under the GNU Affero General Public License v3.0.
+// https://www.gnu.org/licenses/gpl-3.0.html
+
 import { create } from "zustand";
 import { subscribeWithSelector } from "zustand/middleware";
 // import { lsGet, lsSet } from "./utils"
+// import { Fruit } from "../utils/enums";
 
 type State = {
   // Coins
   coins: number;
   setCoins: (amount: number) => void;
+  // Fruits (results)
+  fruit0: string;
+  setFruit0: (fr: string) => void;
+  fruit1: string;
+  setFruit1: (fr: string) => void;
+  fruit2: string;
+  setFruit2: (fr: string) => void;
   // Games
   spins: number;
   addSpin: () => void;
@@ -36,6 +48,35 @@ const useGame = create<State>()(
       set((state) => {
         return {
           coins: state.coins + amount,
+        };
+      });
+    },
+
+    /**
+     * Fruits
+     *
+     */
+    fruit0: "",
+    setFruit0: (fr: string) => {
+      set(() => {
+        return {
+          fruit0: fr,
+        };
+      });
+    },
+    fruit1: "",
+    setFruit1: (fr: string) => {
+      set(() => {
+        return {
+          fruit1: fr,
+        };
+      });
+    },
+    fruit2: "",
+    setFruit2: (fr: string) => {
+      set(() => {
+        return {
+          fruit2: fr,
         };
       });
     },

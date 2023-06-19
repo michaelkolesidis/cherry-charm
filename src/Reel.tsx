@@ -1,3 +1,7 @@
+// Copyright (c) 2023 Michael Kolesidis <michael.kolesidis@gmail.com>
+// Licensed under the GNU Affero General Public License v3.0.
+// https://www.gnu.org/licenses/gpl-3.0.html
+
 import { useRef, forwardRef, ForwardedRef } from "react";
 import { useFrame, useLoader } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
@@ -19,20 +23,31 @@ type GLTFResult = GLTF & {
 type ReelProps = JSX.IntrinsicElements["group"] & {
   value?: number;
   reelSegment: number;
-  reelPosition?: number;
-  reelSpinUntil?: number;
-  reelStopSegment?: number;
+  map: number;
 };
 
 const Reel = forwardRef(
   (props: ReelProps, ref: ForwardedRef<THREE.Group>): JSX.Element => {
+    const { reelSegment } = props;
     const { nodes, materials } = useGLTF("/models/reel.glb") as GLTFResult;
-
-    const { reelSegment, reelPosition, reelSpinUntil, reelStopSegment } = props;
-
     const reel = useRef<THREE.Group>(null);
 
-    const colorMap = useLoader(THREE.TextureLoader, "/images/reel.png");
+    // Color maps
+    const colorMap0 = useLoader(THREE.TextureLoader, "/images/reel_0.png");
+    const colorMap1 = useLoader(THREE.TextureLoader, "/images/reel_1.png");
+    const colorMap2 = useLoader(THREE.TextureLoader, "/images/reel_2.png");
+    let activeColorMap;
+    switch (props.map) {
+      case 0:
+        activeColorMap = colorMap0;
+        break;
+      case 1:
+        activeColorMap = colorMap1;
+        break;
+      case 2:
+        activeColorMap = colorMap2;
+        break;
+    }
 
     useFrame(() => {
       if (reel.current) reel.current.rotation.x += 0.025;
@@ -44,13 +59,8 @@ const Reel = forwardRef(
           rotation={[reelSegment * WHEEL_SEGMENT - 0.2, 0, -Math.PI / 2]}
           scale={[1, 0.29, 1]}
         >
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Cylinder.geometry}
-            // material={materials["Material.001"]}
-          >
-            <meshStandardMaterial map={colorMap} />
+          <mesh castShadow receiveShadow geometry={nodes.Cylinder.geometry}>
+            <meshStandardMaterial map={activeColorMap} />
           </mesh>
           <mesh
             castShadow
@@ -65,5 +75,4 @@ const Reel = forwardRef(
 );
 
 useGLTF.preload("/models/reel.glb");
-
 export default Reel;
