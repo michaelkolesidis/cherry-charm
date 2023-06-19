@@ -24,9 +24,7 @@ type ReelProps = JSX.IntrinsicElements["group"] & {
 
 const Reel = forwardRef(
   (props: ReelProps, ref: ForwardedRef<THREE.Group>): JSX.Element => {
-    const {
-      reelSegment,
-    } = props;
+    const { reelSegment } = props;
     const { nodes, materials } = useGLTF("/models/reel.glb") as GLTFResult;
     const reel = useRef<THREE.Group>(null);
 

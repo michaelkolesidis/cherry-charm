@@ -10,10 +10,13 @@ const Interface = () => {
   return (
     <>
       <div className="interface">
-        <div className="stats">Coins: {coins}</div>
-        <div className="stats">Total Spins: {spins}</div>
-        <div className="stats">Wins: {wins}</div>
-        <div className="stats">Losses: {losses}</div>
+        <img className="logo" src="./images/logo.png" alt="" />
+        <div className="stats-box">
+          <div className="stats">COINS: {coins}</div>
+          <div className="stats">SPINS: {spins}</div>
+          <div className="stats">WINS: {wins}</div>
+          <div className="stats">LOSSES: {losses}</div>
+        </div>
       </div>
     </>
   );
