@@ -1,7 +1,11 @@
+// Copyright (c) 2023 Michael Kolesidis <michael.kolesidis@gmail.com>
+// Licensed under the GNU Affero General Public License v3.0.
+// https://www.gnu.org/licenses/gpl-3.0.html
+
 import { create } from "zustand";
 import { subscribeWithSelector } from "zustand/middleware";
 // import { lsGet, lsSet } from "./utils"
-import { Fruit } from "../utils/enums";
+// import { Fruit } from "../utils/enums";
 
 type State = {
   // Coins

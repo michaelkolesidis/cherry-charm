@@ -1,4 +1,4 @@
-# Style Guide
+# Cherry Charm Style Guide 🍒
 
 ## Imports order
 

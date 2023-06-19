@@ -2,7 +2,7 @@
   "name": "cherry-charm",
   "version": "0.0.0",
   "author": "Michael Kolesidis <michael.kolesidis@gmail.com> (https://michaelkolesidis.com/)",
-  "license": "UNLINCENSED",
+  "license": "AGPL-3.0-or-later",
   "description": "An online 3D slot machine game.",
   "keywords": [
     "slot machine",
