@@ -29,7 +29,10 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
   ];
 
   useEffect(() => {
-    const getRandomStopSegment = () => Math.floor(Math.random() * 14); // Generates a random number between 0 and 7
+    const min = 15;
+    const max = 30;
+    const getRandomStopSegment = () =>
+      Math.floor(Math.random() * (max - min + 1)) + min;
 
     const spinReel = (reelIndex: number) => {
       const reel = reelRefs[reelIndex].current;
