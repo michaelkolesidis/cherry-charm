@@ -63,7 +63,7 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
             reel.rotation.x += rotationSpeed;
             reel.reelSegment = Math.floor(reel.rotation.x / WHEEL_SEGMENT);
           } else if (reel.rotation.x >= targetRotationX) {
-            // The reel ηασ stopped spinning at the desired segment
+            // The reel has stopped spinning at the desired segment
             const fruit = segmentToFruit(i, reel.reelSegment);
 
             if (fruit) {
