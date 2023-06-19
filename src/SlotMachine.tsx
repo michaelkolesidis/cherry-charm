@@ -74,10 +74,6 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
   };
 
   useEffect(() => {
-    spinSlotMachine();
-  }, []);
-
-  useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.code === "Space") {
         spinSlotMachine();
