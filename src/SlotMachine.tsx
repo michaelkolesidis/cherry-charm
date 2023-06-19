@@ -47,6 +47,18 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
     const spinReel = (reelIndex: number) => {
       const reel = reelRefs[reelIndex].current;
       if (reel) {
+        // Reset rotation
+        reel.rotation.x = 0;
+        // Reset all attributes
+        reel.reelSegment = 0;
+        reel.reelPosition = 0;
+        reel.reelSpinUntil = 0;
+        reel.reelStopSegment = 0;
+        // Clear fruits from previous spins
+        setFruit0("");
+        setFruit1("");
+        setFruit2("");
+
         const stopSegment = getRandomStopSegment();
         console.log(stopSegment);
 
@@ -64,12 +76,6 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
   useEffect(() => {
     spinSlotMachine();
   }, []);
-
-  // document.addEventListener("keydown", (e) => {
-  //   if (e.code === "Space") {
-  //     window.location.reload();
-  //   }
-  // });
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -102,7 +108,7 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
 
           const targetRotationX =
             (reel.reelSpinUntil - reel.reelSegment) * WHEEL_SEGMENT;
-          const rotationSpeed = 0.05;
+          const rotationSpeed = 0.1;
 
           if (reel.rotation.x < targetRotationX) {
             reel.rotation.x += rotationSpeed;
