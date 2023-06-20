@@ -37,6 +37,8 @@
     "casino games",
     "virtual casino"
   ],
+  "repository": "https://github.com/michaelkolesidis/cherry-charm.git",
+  "homepage": "https://github.com/michaelkolesidis/cherry-charm",
   "private": true,
   "type": "module",
   "scripts": {

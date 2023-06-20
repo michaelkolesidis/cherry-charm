@@ -17,6 +17,10 @@ const Interface = () => {
       <div className="interface">
         <img className="logo" src="./images/logo.png" alt="" />
         <div className="stats-box">
+          {phase === "idle" && (
+            <div className="stats">Press SPACE to Spin!</div>
+          )}
+
           <div className="stats">{phase.toUpperCase()}</div>
           <div className="stats">COINS: {coins}</div>
           <div className="stats">SPINS: {spins}</div>
