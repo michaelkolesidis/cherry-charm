@@ -36,6 +36,8 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
   const start = useGame((state) => state.start);
   const end = useGame((state) => state.end);
   const addSpin = useGame((state) => state.addSpin);
+  const coins = useGame((state) => state.coins);
+  const updateCoins = useGame((state) => state.updateCoins);
 
   useEffect(() => {
     devLog("PHASE: " + phase);
@@ -85,8 +87,11 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.code === "Space") {
         if (phase !== "spinning") {
-          spinSlotMachine();
-          addSpin();
+          if (coins > 0) {
+            spinSlotMachine();
+            addSpin();
+            updateCoins(-1);
+          }
         }
       }
     };
