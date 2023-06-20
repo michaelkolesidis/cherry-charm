@@ -4,6 +4,7 @@
 
 import { create } from "zustand";
 import { subscribeWithSelector } from "zustand/middleware";
+import devLog from "../utils/functions/devLog";
 // import { lsGet, lsSet } from "./utils"
 import { Fruit } from "../utils/enums";
 
@@ -135,7 +136,7 @@ const useGame = create<State>()(
           const endTime = Date.now();
           const startTime = state.startTime;
           const elapsedTime = endTime - startTime;
-          console.log(`Time spinning: ${elapsedTime / 1000} seconds`);
+          devLog(`Time spinning: ${elapsedTime / 1000} seconds`);
           return { phase: "idle", endTime: endTime };
         }
         return {};

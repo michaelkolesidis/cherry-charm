@@ -7,6 +7,7 @@ import { useEffect, useRef } from "react";
 import { OrbitControls } from "@react-three/drei";
 // import { Perf } from "r3f-perf";
 import useGame from "./stores/store";
+// import devLog from "./utils/functions/devLog";
 import endgame from "./utils/functions/endgame";
 import Lights from "./lights/Lights";
 import SlotMachine from "./SlotMachine";
@@ -23,7 +24,7 @@ const Game = () => {
 
   useEffect(() => {
     // if (slotMachineRef.current) {
-    // console.log(slotMachineRef.current);
+    // devLog(slotMachineRef.current);
     // }
   }, [slotMachineRef]);
 

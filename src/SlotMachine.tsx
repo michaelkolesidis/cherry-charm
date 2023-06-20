@@ -12,6 +12,7 @@ import {
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import useGame from "./stores/store";
+import devLog from "./utils/functions/devLog";
 import segmentToFruit from "./utils/functions/segmentToFruit";
 import { WHEEL_SEGMENT } from "./utils/constants";
 import Reel from "./Reel";
@@ -37,7 +38,7 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
   const end = useGame((state) => state.end);
 
   useEffect(() => {
-    console.log("PHASE: " + phase);
+    devLog("PHASE: " + phase);
   }, [phase]);
 
   const reelRefs = [
@@ -48,8 +49,6 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
 
   const spinSlotMachine = () => {
     start();
-    console.log(phase);
-
     const min = 15;
     const max = 30;
     const getRandomStopSegment = () =>
@@ -71,7 +70,7 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
         setFruit2("");
 
         const stopSegment = getRandomStopSegment();
-        console.log(stopSegment);
+        devLog(`Stop segment of reel ${reelIndex}: ${stopSegment}`);
 
         reel.reelSpinUntil = stopSegment;
       }
@@ -135,7 +134,7 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
               }
             }
 
-            console.log(
+            devLog(
               `Reel ${i + 1} stopped at segment ${reel.reelSegment} ${fruit}`
             );
             reel.reelSpinUntil = undefined; // Reset reelSpinUntil to stop further logging
