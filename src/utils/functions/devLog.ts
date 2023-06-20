@@ -7,7 +7,7 @@
  *
  * @param message - The text to be logged in console
  */
-const devLog = (message: string) => {
+const devLog = (message: string): void => {
   // Get the current page URL
   const url = window.location.href;
 

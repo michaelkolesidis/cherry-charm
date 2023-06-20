@@ -32,10 +32,10 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
   const setFruit0 = useGame((state) => state.setFruit0);
   const setFruit1 = useGame((state) => state.setFruit1);
   const setFruit2 = useGame((state) => state.setFruit2);
-
   const phase = useGame((state) => state.phase);
   const start = useGame((state) => state.start);
   const end = useGame((state) => state.end);
+  const addSpin = useGame((state) => state.addSpin);
 
   useEffect(() => {
     devLog("PHASE: " + phase);
@@ -86,6 +86,7 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
       if (event.code === "Space") {
         if (phase !== "spinning") {
           spinSlotMachine();
+          addSpin();
         }
       }
     };

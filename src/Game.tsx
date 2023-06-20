@@ -22,12 +22,6 @@ const Game = () => {
     endgame(fruit0, fruit1, fruit2);
   }, [fruit0, fruit1, fruit2]);
 
-  useEffect(() => {
-    // if (slotMachineRef.current) {
-    // devLog(slotMachineRef.current);
-    // }
-  }, [slotMachineRef]);
-
   return (
     <>
       <color args={["#121215"]} attach="background" />

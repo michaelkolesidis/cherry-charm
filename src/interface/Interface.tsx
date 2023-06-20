@@ -9,8 +9,8 @@ const Interface = () => {
   const phase = useGame((state) => state.phase);
   const coins = useGame((state) => state.coins);
   const spins = useGame((state) => state.spins);
-  const wins = useGame((state) => state.wins);
-  const losses = useGame((state) => state.losses);
+  // const wins = useGame((state) => state.wins);
+  // const losses = useGame((state) => state.losses);
 
   return (
     <>
@@ -20,8 +20,8 @@ const Interface = () => {
           <div className="stats">{phase.toUpperCase()}</div>
           <div className="stats">COINS: {coins}</div>
           <div className="stats">SPINS: {spins}</div>
-          <div className="stats">WINS: {wins}</div>
-          <div className="stats">LOSSES: {losses}</div>
+          {/* <div className="stats">WINS: {wins}</div>
+          <div className="stats">LOSSES: {losses}</div> */}
         </div>
       </div>
     </>

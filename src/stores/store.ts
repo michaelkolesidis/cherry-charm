@@ -22,10 +22,10 @@ type State = {
   // Games
   spins: number;
   addSpin: () => void;
-  wins: number;
-  won: () => void;
-  losses: number;
-  lost: () => void;
+  // wins: number;
+  // won: () => void;
+  // losses: number;
+  // lost: () => void;
   // Time
   startTime: number;
   endTime: number;
@@ -94,22 +94,22 @@ const useGame = create<State>()(
         };
       });
     },
-    wins: 0,
-    won: () => {
-      set((state) => {
-        return {
-          wins: state.wins + 1,
-        };
-      });
-    },
-    losses: 0,
-    lost: () => {
-      set((state) => {
-        return {
-          losses: state.losses + 1,
-        };
-      });
-    },
+    // wins: 0,
+    // won: () => {
+    //   set((state) => {
+    //     return {
+    //       wins: state.wins + 1,
+    //     };
+    //   });
+    // },
+    // losses: 0,
+    // lost: () => {
+    //   set((state) => {
+    //     return {
+    //       losses: state.losses + 1,
+    //     };
+    //   });
+    // },
 
     /**
      * Time
