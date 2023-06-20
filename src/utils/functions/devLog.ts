@@ -2,6 +2,11 @@
 // Licensed under the GNU Affero General Public License v3.0.
 // https://www.gnu.org/licenses/gpl-3.0.html
 
+/**
+ * Logs a message in console only when in development environments
+ *
+ * @param message - The text to be logged in console
+ */
 const devLog = (message: string) => {
   // Get the current page URL
   const url = window.location.href;
