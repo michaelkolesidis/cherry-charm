@@ -32,6 +32,14 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
   const setFruit1 = useGame((state) => state.setFruit1);
   const setFruit2 = useGame((state) => state.setFruit2);
 
+  const phase = useGame((state) => state.phase);
+  const start = useGame((state) => state.start);
+  const end = useGame((state) => state.end);
+
+  useEffect(() => {
+    console.log("PHASE: " + phase);
+  }, [phase]);
+
   const reelRefs = [
     useRef<ReelGroup>(null),
     useRef<ReelGroup>(null),
@@ -39,6 +47,9 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
   ];
 
   const spinSlotMachine = () => {
+    start();
+    console.log(phase);
+
     const min = 15;
     const max = 30;
     const getRandomStopSegment = () =>
@@ -69,14 +80,14 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
     spinReel(0);
     spinReel(1);
     spinReel(2);
-
-    // addSpin();
   };
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.code === "Space") {
-        spinSlotMachine();
+        if (phase !== "spinning") {
+          spinSlotMachine();
+        }
       }
     };
 
@@ -85,13 +96,7 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, []);
-
-  // const [timesSpinned, setTimesSpinned] = useState(1);
-
-  // const addSpin = () => {
-  //   setTimesSpinned(timesSpinned + 1);
-  // };
+  }, [phase]);
 
   useFrame(() => {
     for (let i = 0; i < reelRefs.length; i++) {
@@ -111,18 +116,21 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
             reel.reelSegment = Math.floor(reel.rotation.x / WHEEL_SEGMENT);
           } else if (reel.rotation.x >= targetRotationX) {
             // The reel has stopped spinning at the desired segment
+            setTimeout(() => {
+              end();
+            }, 500);
             const fruit = segmentToFruit(i, reel.reelSegment);
 
             if (fruit) {
               switch (i) {
                 case 0:
-                  setFruit0(fruit.toString());
+                  setFruit0(fruit);
                   break;
                 case 1:
-                  setFruit1(fruit.toString());
+                  setFruit1(fruit);
                   break;
                 case 2:
-                  setFruit2(fruit.toString());
+                  setFruit2(fruit);
                   break;
               }
             }

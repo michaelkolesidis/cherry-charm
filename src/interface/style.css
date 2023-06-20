@@ -17,8 +17,9 @@
 .stats-box {
   position: fixed;
   bottom: 0;
-  right: 0;
-  margin: 0.5em;
+  left: 0;
+  width: 100vw;
+  text-align: center;
 }
 
 .stats {

@@ -5,7 +5,7 @@
 import { useEffect, useRef } from "react";
 // import { useFrame } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
-import { Perf } from "r3f-perf";
+// import { Perf } from "r3f-perf";
 import useGame from "./stores/store";
 import endgame from "./utils/functions/endgame";
 import Lights from "./lights/Lights";
@@ -30,7 +30,7 @@ const Game = () => {
   return (
     <>
       <color args={["#121215"]} attach="background" />
-      <Perf position="bottom-left" />
+      {/* <Perf position="bottom-left" /> */}
       <OrbitControls />
       <Lights />
       <SlotMachine ref={slotMachineRef} value={[1, 2, 3]} />

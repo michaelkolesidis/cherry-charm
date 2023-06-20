@@ -6,6 +6,7 @@ import useGame from "../stores/store";
 import "./style.css";
 
 const Interface = () => {
+  const phase = useGame((state) => state.phase);
   const coins = useGame((state) => state.coins);
   const spins = useGame((state) => state.spins);
   const wins = useGame((state) => state.wins);
@@ -16,6 +17,7 @@ const Interface = () => {
       <div className="interface">
         <img className="logo" src="./images/logo.png" alt="" />
         <div className="stats-box">
+          <div className="stats">{phase.toUpperCase()}</div>
           <div className="stats">COINS: {coins}</div>
           <div className="stats">SPINS: {spins}</div>
           <div className="stats">WINS: {wins}</div>
