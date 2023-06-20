@@ -2,18 +2,13 @@
 // Licensed under the GNU Affero General Public License v3.0.
 // https://www.gnu.org/licenses/gpl-3.0.html
 
-import {
-  useRef,
-  useEffect,
-  // useState,
-  forwardRef,
-  useImperativeHandle,
-} from "react";
+import { useRef, useEffect, forwardRef, useImperativeHandle } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import useGame from "./stores/store";
 import devLog from "./utils/functions/devLog";
 import segmentToFruit from "./utils/functions/segmentToFruit";
+import endgame from "./utils/functions/endgame";
 import { WHEEL_SEGMENT } from "./utils/constants";
 import Reel from "./Reel";
 
@@ -29,6 +24,9 @@ interface SlotMachineProps {
 }
 
 const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
+  const fruit0 = useGame((state) => state.fruit0);
+  const fruit1 = useGame((state) => state.fruit1);
+  const fruit2 = useGame((state) => state.fruit2);
   const setFruit0 = useGame((state) => state.setFruit0);
   const setFruit1 = useGame((state) => state.setFruit1);
   const setFruit2 = useGame((state) => state.setFruit2);
@@ -41,6 +39,10 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
 
   useEffect(() => {
     devLog("PHASE: " + phase);
+
+    if (phase === "idle") {
+      updateCoins(endgame(fruit0, fruit1, fruit2));
+    }
   }, [phase]);
 
   const reelRefs = [
@@ -70,7 +72,6 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
         setFruit0("");
         setFruit1("");
         setFruit2("");
-
         const stopSegment = getRandomStopSegment();
         devLog(`Stop segment of reel ${reelIndex}: ${stopSegment}`);
 
@@ -123,7 +124,7 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
             // The reel has stopped spinning at the desired segment
             setTimeout(() => {
               end();
-            }, 500);
+            }, 1000);
             const fruit = segmentToFruit(i, reel.reelSegment);
 
             if (fruit) {

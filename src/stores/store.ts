@@ -5,7 +5,6 @@
 import { create } from "zustand";
 import { subscribeWithSelector } from "zustand/middleware";
 import devLog from "../utils/functions/devLog";
-// import { lsGet, lsSet } from "./utils"
 import { Fruit } from "../utils/enums";
 
 type State = {
