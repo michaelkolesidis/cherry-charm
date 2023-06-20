@@ -2,7 +2,31 @@
 // Licensed under the GNU Affero General Public License v3.0.
 // https://www.gnu.org/licenses/gpl-3.0.html
 
-const endgame = (fruit0: string, fruit1: string, fruit2: string) => {
+import devLog from "./devLog";
+
+/**
+ * Returns the amount of coins won when at the end of a spin
+ *
+ * @param fruit0 - The fruit result of reel 0
+ * @param fruit0 - The fruit result of reel 1
+ * @param fruit0 - The fruit result of reel 2
+ * @returns Coins won
+ *
+ * @example
+ * An example of a win
+ * ```
+ * // Returns 50
+ * endgame("CHERRY", "CHERRY", "CHERRY")
+ * ```
+ *
+ * @example
+ * An example of a loss
+ * * ```
+ * // Returns 0
+ * endgame("CHERRY", "APPLE", "APPLE")
+ * ```
+ */
+const endgame = (fruit0: string, fruit1: string, fruit2: string): number => {
   let coins = 0;
 
   // Check for 3 cherries
@@ -35,7 +59,7 @@ const endgame = (fruit0: string, fruit1: string, fruit2: string) => {
   }
 
   if (coins > 0) {
-    console.log(`Coins won: ${coins}`);
+    devLog(`Coins won: ${coins}`);
   }
 
   // If no coins were won 0 is returned

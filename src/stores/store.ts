@@ -4,20 +4,21 @@
 
 import { create } from "zustand";
 import { subscribeWithSelector } from "zustand/middleware";
+import devLog from "../utils/functions/devLog";
 // import { lsGet, lsSet } from "./utils"
-// import { Fruit } from "../utils/enums";
+import { Fruit } from "../utils/enums";
 
 type State = {
   // Coins
   coins: number;
-  setCoins: (amount: number) => void;
+  updateCoins: (amount: number) => void;
   // Fruits (results)
-  fruit0: string;
-  setFruit0: (fr: string) => void;
-  fruit1: string;
-  setFruit1: (fr: string) => void;
-  fruit2: string;
-  setFruit2: (fr: string) => void;
+  fruit0: Fruit | "";
+  setFruit0: (fr: Fruit | "") => void;
+  fruit1: Fruit | "";
+  setFruit1: (fr: Fruit | "") => void;
+  fruit2: Fruit | "";
+  setFruit2: (fr: Fruit | "") => void;
   // Games
   spins: number;
   addSpin: () => void;
@@ -29,7 +30,7 @@ type State = {
   startTime: number;
   endTime: number;
   // Phase
-  phase: string;
+  phase: "idle" | "spinning";
   start: () => void;
   end: () => void;
   // First time
@@ -44,7 +45,7 @@ const useGame = create<State>()(
      *
      */
     coins: 20,
-    setCoins: (amount: number) => {
+    updateCoins: (amount: number) => {
       set((state) => {
         return {
           coins: state.coins + amount,
@@ -57,7 +58,7 @@ const useGame = create<State>()(
      *
      */
     fruit0: "",
-    setFruit0: (fr: string) => {
+    setFruit0: (fr: Fruit | "") => {
       set(() => {
         return {
           fruit0: fr,
@@ -65,7 +66,7 @@ const useGame = create<State>()(
       });
     },
     fruit1: "",
-    setFruit1: (fr: string) => {
+    setFruit1: (fr: Fruit | "") => {
       set(() => {
         return {
           fruit1: fr,
@@ -73,7 +74,7 @@ const useGame = create<State>()(
       });
     },
     fruit2: "",
-    setFruit2: (fr: string) => {
+    setFruit2: (fr: Fruit | "") => {
       set(() => {
         return {
           fruit2: fr,
@@ -120,23 +121,23 @@ const useGame = create<State>()(
      * Phases
      * The phase of the game
      */
-    phase: "ready",
+    phase: "idle",
     start: () => {
       set((state) => {
-        if (state.phase === "ready") {
-          return { phase: "playing", startTime: Date.now() };
+        if (state.phase === "idle") {
+          return { phase: "spinning", startTime: Date.now() };
         }
         return {};
       });
     },
     end: () => {
       set((state) => {
-        if (state.phase === "playing") {
+        if (state.phase === "spinning") {
           const endTime = Date.now();
           const startTime = state.startTime;
           const elapsedTime = endTime - startTime;
-          console.log(elapsedTime);
-          return { phase: "ended", endTime: endTime };
+          devLog(`Time spinning: ${elapsedTime / 1000} seconds`);
+          return { phase: "idle", endTime: endTime };
         }
         return {};
       });
