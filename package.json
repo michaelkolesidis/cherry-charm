@@ -6,6 +6,8 @@
   "description": "An online 3D slot machine game.",
   "keywords": [
     "slot machine",
+    "slot machine game",
+    "slot machine js",
     "online slots",
     "reels",
     "spin",
@@ -19,6 +21,8 @@
     "slot",
     "threejs",
     "react",
+    "javascript",
+    "typescript",
     "3D",
     "3D game",
     "react three fiber",
@@ -29,6 +33,8 @@
     "online game",
     "gambling game",
     "casino",
+    "casino game",
+    "casino games",
     "virtual casino"
   ],
   "private": true,
