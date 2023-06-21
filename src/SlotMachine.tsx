@@ -33,6 +33,7 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
   const setFruit2 = useGame((state) => state.setFruit2);
   // const receivedSegments = useGame((state) => state.receivedSegments);
   // const setReceivedSegments = useGame((state) => state.setReceivedSegments);
+  const setSparkles = useGame((state) => state.setSparkles);
   const phase = useGame((state) => state.phase);
   const start = useGame((state) => state.start);
   const end = useGame((state) => state.end);
@@ -64,7 +65,13 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
     devLog("PHASE: " + phase);
 
     if (phase === "idle") {
+      // const winnings = endgame(fruit0, fruit1, fruit2);
       updateCoins(endgame(fruit0, fruit1, fruit2));
+
+      // setSparkles(true);
+      // setTimeout(() => {
+      //   setSparkles(false);
+      // }, 1000); β    
     }
   }, [phase]);
 

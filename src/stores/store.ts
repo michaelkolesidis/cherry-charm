@@ -30,6 +30,9 @@ type State = {
   // won: () => void;
   // losses: number;
   // lost: () => void;
+  // Sparkles
+  // sparkles: boolean;
+  // setSparkles: (value: boolean) => void;
   // Time
   startTime: number;
   endTime: number;
@@ -135,6 +138,18 @@ const useGame = create<State>()(
     //     };
     //   });
     // },
+
+    /**
+     * Sparkles
+     */
+    sparkles: false,
+    setSparkles: (value: boolean) => {
+      set(() => {
+        return {
+          sparkles: value,
+        };
+      });
+    },
 
     /**
      * Time
