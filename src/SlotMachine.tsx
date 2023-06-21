@@ -2,8 +2,15 @@
 // Licensed under the GNU Affero General Public License v3.0.
 // https://www.gnu.org/licenses/gpl-3.0.html
 
-import { useRef, useEffect, forwardRef, useImperativeHandle } from "react";
+import {
+  useRef,
+  useEffect,
+  forwardRef,
+  useImperativeHandle,
+  useState,
+} from "react";
 import { useFrame } from "@react-three/fiber";
+import { Text } from "@react-three/drei";
 import * as THREE from "three";
 import useGame from "./stores/store";
 import devLog from "./utils/functions/devLog";
@@ -11,6 +18,9 @@ import segmentToFruit from "./utils/functions/segmentToFruit";
 import endgame from "./utils/functions/endgame";
 import { WHEEL_SEGMENT } from "./utils/constants";
 import Reel from "./Reel";
+import Button from "./Button";
+// import Casing from "./Casing";
+// import Bars from "./Bars";
 
 interface ReelGroup extends THREE.Group {
   reelSegment?: number;
@@ -71,7 +81,7 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
       // setSparkles(true);
       // setTimeout(() => {
       //   setSparkles(false);
-      // }, 1000); β    
+      // }, 1000); β
     }
   }, [phase]);
 
@@ -190,8 +200,17 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
   //   reelRefs: reelRefs.map((ref) => ref.current),
   // }));
 
+  const [buttonZ, setButtonZ] = useState(0);
+  const [buttonY, setButtonY] = useState(-13);
+
   return (
     <>
+      {/* <Casing
+        scale={[25, 25, 25]}
+        position={[0, -12, 13.8]}
+        rotation={[0.2,  Math.PI, 0]}
+      /> */}
+      {/* <Bars /> */}
       <Reel
         ref={reelRefs[0]}
         value={value[0]}
@@ -219,6 +238,39 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
         scale={[10, 10, 10]}
         reelSegment={0}
       />
+      <Button
+        scale={[0.055, 0.045, 0.045]}
+        position={[0, buttonY, buttonZ]}
+        rotation={[-Math.PI / 8, 0, 0]}
+        onClick={() => {
+          if (phase !== "spinning") {
+            if (coins > 0) {
+              spinSlotMachine();
+              addSpin();
+              updateCoins(-1);
+            }
+          }
+        }}
+        onPointerDown={() => {
+          setButtonZ(-1);
+          setButtonY(-13.5);
+        }}
+        onPointerUp={() => {
+          setButtonZ(0);
+          setButtonY(-13);
+        }}
+      />
+      <Text
+        color="white"
+        anchorX="center"
+        anchorY="middle"
+        position={[0, -14, 1.6]}
+        rotation={[-Math.PI / 8, 0, 0]}
+        fontSize={3}
+        font="./fonts/nickname.otf"
+      >
+        {phase === "idle" ? "SPIN" : "SPINNING"}
+      </Text>
     </>
   );
 });

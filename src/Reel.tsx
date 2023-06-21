@@ -4,7 +4,7 @@
 
 import { useRef, forwardRef, ForwardedRef } from "react";
 import { useFrame, useLoader } from "@react-three/fiber";
-import { useGLTF, Sparkles } from "@react-three/drei";
+import { useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 import { GLTF } from "three-stdlib";
 // import useGame from "./stores/store";
