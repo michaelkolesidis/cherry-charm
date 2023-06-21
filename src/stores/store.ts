@@ -142,14 +142,14 @@ const useGame = create<State>()(
     /**
      * Sparkles
      */
-    sparkles: false,
-    setSparkles: (value: boolean) => {
-      set(() => {
-        return {
-          sparkles: value,
-        };
-      });
-    },
+    // sparkles: false,
+    // setSparkles: (value: boolean) => {
+    //   set(() => {
+    //     return {
+    //       sparkles: value,
+    //     };
+    //   });
+    // },
 
     /**
      * Time
