@@ -24,18 +24,41 @@ interface SlotMachineProps {
 }
 
 const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
+  // const valuesUrl = useGame((state) => state.valuesUrl);
   const fruit0 = useGame((state) => state.fruit0);
   const fruit1 = useGame((state) => state.fruit1);
   const fruit2 = useGame((state) => state.fruit2);
   const setFruit0 = useGame((state) => state.setFruit0);
   const setFruit1 = useGame((state) => state.setFruit1);
   const setFruit2 = useGame((state) => state.setFruit2);
+  // const receivedSegments = useGame((state) => state.receivedSegments);
+  // const setReceivedSegments = useGame((state) => state.setReceivedSegments);
   const phase = useGame((state) => state.phase);
   const start = useGame((state) => state.start);
   const end = useGame((state) => state.end);
   const addSpin = useGame((state) => state.addSpin);
   const coins = useGame((state) => state.coins);
   const updateCoins = useGame((state) => state.updateCoins);
+
+  // const fetchSegmentValues = async () => {
+  //   try {
+  //     const requestOptions = {
+  //       method: "GET",
+  //       headers: { "Content-Type": "application/json" },
+  //     };
+  //     const response = await fetch(valuesUrl, requestOptions);
+  //     if (response.ok) {
+  //       const data = await response.json();
+
+  //       setReceivedSegments(data);
+  //       console.log(data[0]);
+  //     } else {
+  //       console.error("Failed to fetch scratch card: ", response.status);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error while fetching scratch card: ", error);
+  //   }
+  // };
 
   useEffect(() => {
     devLog("PHASE: " + phase);
@@ -89,6 +112,7 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
       if (event.code === "Space") {
         if (phase !== "spinning") {
           if (coins > 0) {
+            // fetchSegmentValues();
             spinSlotMachine();
             addSpin();
             updateCoins(-1);

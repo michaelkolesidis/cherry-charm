@@ -8,6 +8,8 @@ import devLog from "../utils/functions/devLog";
 import { Fruit } from "../utils/enums";
 
 type State = {
+  // Endpoint
+  // valuesUrl: string;
   // Coins
   coins: number;
   updateCoins: (amount: number) => void;
@@ -18,6 +20,9 @@ type State = {
   setFruit1: (fr: Fruit | "") => void;
   fruit2: Fruit | "";
   setFruit2: (fr: Fruit | "") => void;
+  // Segments
+  // receivedSegments: number[];
+  // setReceivedSegments: (segments: number[]) => void;
   // Games
   spins: number;
   addSpin: () => void;
@@ -39,6 +44,14 @@ type State = {
 
 const useGame = create<State>()(
   subscribeWithSelector((set) => ({
+    /**
+     * Endpoint
+     * (different endpoints for running locally and for deployment)
+     */
+    // valuesUrl: /(localhost)/.test(window.location.href)
+    //   ? "http://localhost:4000/values"
+    //   : "https://cherry-charm.onrender.com/values",
+
     /**
      * Coins
      *
@@ -80,6 +93,19 @@ const useGame = create<State>()(
         };
       });
     },
+
+    /**
+     * Received segments
+     *
+     */
+    // receivedSegments: [-1, -1, -1],
+    // setReceivedSegments: (segments: number[]) => {
+    //   set(() => {
+    //     return {
+    //       receivedSegments: segments,
+    //     };
+    //   });
+    // },
 
     /**
      * Games
