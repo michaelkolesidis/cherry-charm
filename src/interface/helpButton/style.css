@@ -1,0 +1,10 @@
+.help-button {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  background-image: url("/images/help.svg");
+  height: min(40px, 10vw);
+  width: min(40px, 10vw);
+  cursor: pointer;
+  z-index: 1;
+}

@@ -1,0 +1,39 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(31, 31, 31, 0.4);
+}
+
+.modal-box {
+  background: #ffffff;
+  width: min(90vw, 500px);
+  height: fit-content;
+  padding: 4vh min(8vw, 30px);
+  border-radius: 40px;
+  z-index: 3;
+  text-align: center;
+  box-shadow: 0 0 20px #ffffff;
+}
+
+.modal-text {
+  font-family: "Inter", sans-serif;
+  margin: 2vh 0;
+  text-align: left;
+  font-size: min(4vw, 20px);
+}
+
+.modal-image {
+  width: 40px;
+  margin: 0.1em;
+}
+
+span {
+  font-size: 40px;
+}

@@ -35,6 +35,7 @@ interface SlotMachineProps {
 
 const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
   // const valuesUrl = useGame((state) => state.valuesUrl);
+  const modal = useGame((state) => state.modal);
   const fruit0 = useGame((state) => state.fruit0);
   const fruit1 = useGame((state) => state.fruit1);
   const fruit2 = useGame((state) => state.fruit2);
@@ -203,6 +204,9 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
   const [buttonZ, setButtonZ] = useState(0);
   const [buttonY, setButtonY] = useState(-13);
 
+  const [textZ, setTextZ] = useState(1.6);
+  const [textY, setTextY] = useState(-14);
+
   return (
     <>
       {/* <Casing
@@ -264,10 +268,18 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
         color="white"
         anchorX="center"
         anchorY="middle"
-        position={[0, -14, 1.6]}
+        position={[0, textY, textZ]}
         rotation={[-Math.PI / 8, 0, 0]}
         fontSize={3}
         font="./fonts/nickname.otf"
+        onPointerDown={() => {
+          setTextZ(1.3);
+          setTextY(-14.1);
+        }}
+        onPointerUp={() => {
+          setTextZ(1.6);
+          setTextY(-14);
+        }}
       >
         {phase === "idle" ? "SPIN" : "SPINNING"}
       </Text>
