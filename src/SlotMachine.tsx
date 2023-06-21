@@ -33,7 +33,7 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
   const setFruit2 = useGame((state) => state.setFruit2);
   // const receivedSegments = useGame((state) => state.receivedSegments);
   // const setReceivedSegments = useGame((state) => state.setReceivedSegments);
-  const setSparkles = useGame((state) => state.setSparkles);
+  // const setSparkles = useGame((state) => state.setSparkles);
   const phase = useGame((state) => state.phase);
   const start = useGame((state) => state.start);
   const end = useGame((state) => state.end);
