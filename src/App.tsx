@@ -3,9 +3,6 @@
 // https://www.gnu.org/licenses/gpl-3.0.html
 
 import { Canvas } from "@react-three/fiber";
-// import { KeyboardControls, OrthographicCamera } from "@react-three/drei";
-// import useGame from "./stores/useGame";
-// import checkFirstTimeVisit from "./utils/functions/checkFirstTimeVisit";
 import Interface from "./interface/Interface";
 import Game from "./Game";
 

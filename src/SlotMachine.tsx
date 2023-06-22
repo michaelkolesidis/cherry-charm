@@ -35,7 +35,6 @@ interface SlotMachineProps {
 
 const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
   // const valuesUrl = useGame((state) => state.valuesUrl);
-  const modal = useGame((state) => state.modal);
   const fruit0 = useGame((state) => state.fruit0);
   const fruit1 = useGame((state) => state.fruit1);
   const fruit2 = useGame((state) => state.fruit2);
