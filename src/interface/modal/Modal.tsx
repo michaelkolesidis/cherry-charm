@@ -62,8 +62,12 @@ const Modal = () => {
             <img className="modal-image" src="./images/coin.png" />
           </div>
           <div className="modal-text">
-            Extra: Click and hold mouse, and move it around to explore the 3D
-            scene!
+            Please note that slot machines only consider pairs a match if they
+            are in order from left to right.
+          </div>
+          <div className="modal-text">
+            Extra: Click & hold anywhere, and move the cursor around to explore
+            the 3D scene!
           </div>
         </div>
       </div>
