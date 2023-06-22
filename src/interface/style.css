@@ -7,36 +7,14 @@
 }
 
 .logo {
-  width: 15em;
+  width: min(300px, 25vw);
   transform: rotate(-5deg);
   position: fixed;
   top: 0;
   left: 0;
   margin: 0.5em;
-}
-
-.instructions {
-  position: fixed;
-  top: 0;
-  right: 0;
-  margin: 0.5em;
-  max-width: 15ch;
-  text-align: center;
-  font-size: 35px;
-  animation: flash 0.3s infinite;
-  animation-timing-function: steps(4, jump-both);
-}
-
-@keyframes flash {
-  0% {
-    display: none;
-    opacity: 0;
-  }
-
-  100% {
-    display: block;
-    opacity: 1;
-  }
+  cursor: pointer;
+  z-index: 1;
 }
 
 .spins-section {
@@ -47,8 +25,8 @@
 }
 
 .spins-number {
-  font-size: 130px;
-  text-shadow: 10px 10px 0px #6913c5;
+  font-size: min(130px, 11vw);
+  text-shadow: min(7px, 1vw) min(7px, 1vw) 0px #6913c5;
   width: 400px;
 }
 
@@ -63,14 +41,14 @@
 }
 
 .coins-number {
-  font-size: 130px;
+  font-size: min(130px, 11vw);
   width: 400px;
   text-align: right;
-  text-shadow: 10px 10px 0px #6913c5;
+  text-shadow: min(7px, 1vw) min(7px, 1vw) 0px #6913c5;
 }
 
 .coins-image {
-  margin-top: 30px;
-  margin-left: 20px;
-  width: 125px;
+  margin-top: 1vw;
+  margin-left: 2vw;
+  width: min(130px, 11vw);
 }

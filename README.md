@@ -8,6 +8,7 @@ The game features a slot machine with three reels and four fruits, 🍒🍎🍌�
 
 ## Features
 
+- Fully responsive for desktop and mobile
 - Players can spin the slot machine either by clicking on the _Spin button_ or by pressing _Space_
 - Number of coins visible
 - Number or spins visible
@@ -49,8 +50,15 @@ yarn dev
 
 ## Screenshots
 
+### Desktop
+
 ![Game](./screenshots/game.png)
 ![Modal](./screenshots/modal.png)
+
+### Mobile
+
+![Game Mobile](./screenshots/game_mobile.png)
+![Modal Mobile](./screenshots/modal_mobile.png)
 
 ## Technologies
 

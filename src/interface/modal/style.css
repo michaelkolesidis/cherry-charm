@@ -13,9 +13,9 @@
 
 .modal-box {
   background: #ffffff;
-  width: min(90vw, 500px);
+  width: min(85vw, 550px);
   height: fit-content;
-  padding: 4vh min(8vw, 30px);
+  padding: 2vh min(8vw, 30px);
   border-radius: 40px;
   z-index: 3;
   text-align: center;
@@ -27,13 +27,22 @@
   margin: 2vh 0;
   text-align: left;
   font-size: min(4vw, 20px);
+  text-align: center;
 }
 
 .modal-image {
-  width: 40px;
-  margin: 0.1em;
+  width: min(6vw, 40px);
+  margin: min(0.1em, 4px);
 }
 
 span {
-  font-size: 40px;
+  font-size: min(6vw, 40px);
+}
+
+a,
+a:active,
+a:visited {
+  text-decoration: none;
+  color: #000;
+  font-size: min(3vw, 20px);
 }

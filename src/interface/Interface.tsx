@@ -21,10 +21,15 @@ const Interface = () => {
       {/* Modal */}
       {modal && <Modal />}
 
-      <div className="interface">
-        {/* Logo */}
+      {/* Logo */}
+      <a
+        href="https://github.com/michaelkolesidis/cherry-charm"
+        target="_blank"
+      >
         <img className="logo" src="./images/logo.png" alt="" />
+      </a>
 
+      <div className="interface">
         {/* Coins */}
         <div className="coins-section">
           <div className="coins-number">{coins}</div>
