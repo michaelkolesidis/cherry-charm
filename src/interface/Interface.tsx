@@ -3,26 +3,41 @@
 // https://www.gnu.org/licenses/gpl-3.0.html
 
 import useGame from "../stores/store";
+import Modal from "./modal/Modal";
+import HelpButton from "./helpButton/HelpButton";
 import "./style.css";
 
 const Interface = () => {
-  const phase = useGame((state) => state.phase);
+  // const phase = useGame((state) => state.phase);
+  const modal = useGame((state) => state.modal);
   const coins = useGame((state) => state.coins);
   const spins = useGame((state) => state.spins);
-  const wins = useGame((state) => state.wins);
-  const losses = useGame((state) => state.losses);
 
   return (
     <>
+      {/* Help Button */}
+      <HelpButton />
+
+      {/* Modal */}
+      {modal && <Modal />}
+
       <div className="interface">
+        {/* Logo */}
         <img className="logo" src="./images/logo.png" alt="" />
-        <div className="stats-box">
-          <div className="stats">{phase.toUpperCase()}</div>
-          <div className="stats">COINS: {coins}</div>
-          <div className="stats">SPINS: {spins}</div>
-          <div className="stats">WINS: {wins}</div>
-          <div className="stats">LOSSES: {losses}</div>
+
+        {/* Coins */}
+        <div className="coins-section">
+          <div className="coins-number">{coins}</div>
+          <img className="coins-image" src="./images/coin.png" />
         </div>
+
+        {/* Spins */}
+        <div className="spins-section">
+          <div className="spins-number">{spins}</div>
+        </div>
+
+        {/* Phase */}
+        {/* <div >{phase.toUpperCase()}</div> */}
       </div>
     </>
   );

@@ -5,17 +5,22 @@
 import {
   useRef,
   useEffect,
-  // useState,
   forwardRef,
   useImperativeHandle,
+  useState,
 } from "react";
 import { useFrame } from "@react-three/fiber";
+import { Text } from "@react-three/drei";
 import * as THREE from "three";
 import useGame from "./stores/store";
 import devLog from "./utils/functions/devLog";
 import segmentToFruit from "./utils/functions/segmentToFruit";
+import endgame from "./utils/functions/endgame";
 import { WHEEL_SEGMENT } from "./utils/constants";
 import Reel from "./Reel";
+import Button from "./Button";
+// import Casing from "./Casing";
+// import Bars from "./Bars";
 
 interface ReelGroup extends THREE.Group {
   reelSegment?: number;
@@ -29,16 +34,55 @@ interface SlotMachineProps {
 }
 
 const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
+  // const valuesUrl = useGame((state) => state.valuesUrl);
+  const fruit0 = useGame((state) => state.fruit0);
+  const fruit1 = useGame((state) => state.fruit1);
+  const fruit2 = useGame((state) => state.fruit2);
   const setFruit0 = useGame((state) => state.setFruit0);
   const setFruit1 = useGame((state) => state.setFruit1);
   const setFruit2 = useGame((state) => state.setFruit2);
-
+  // const receivedSegments = useGame((state) => state.receivedSegments);
+  // const setReceivedSegments = useGame((state) => state.setReceivedSegments);
+  // const setSparkles = useGame((state) => state.setSparkles);
   const phase = useGame((state) => state.phase);
   const start = useGame((state) => state.start);
   const end = useGame((state) => state.end);
+  const addSpin = useGame((state) => state.addSpin);
+  const coins = useGame((state) => state.coins);
+  const updateCoins = useGame((state) => state.updateCoins);
+
+  // const fetchSegmentValues = async () => {
+  //   try {
+  //     const requestOptions = {
+  //       method: "GET",
+  //       headers: { "Content-Type": "application/json" },
+  //     };
+  //     const response = await fetch(valuesUrl, requestOptions);
+  //     if (response.ok) {
+  //       const data = await response.json();
+
+  //       setReceivedSegments(data);
+  //       console.log(data[0]);
+  //     } else {
+  //       console.error("Failed to fetch scratch card: ", response.status);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error while fetching scratch card: ", error);
+  //   }
+  // };
 
   useEffect(() => {
     devLog("PHASE: " + phase);
+
+    if (phase === "idle") {
+      // const winnings = endgame(fruit0, fruit1, fruit2);
+      updateCoins(endgame(fruit0, fruit1, fruit2));
+
+      // setSparkles(true);
+      // setTimeout(() => {
+      //   setSparkles(false);
+      // }, 1000); β
+    }
   }, [phase]);
 
   const reelRefs = [
@@ -68,7 +112,6 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
         setFruit0("");
         setFruit1("");
         setFruit2("");
-
         const stopSegment = getRandomStopSegment();
         devLog(`Stop segment of reel ${reelIndex}: ${stopSegment}`);
 
@@ -85,7 +128,12 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.code === "Space") {
         if (phase !== "spinning") {
-          spinSlotMachine();
+          if (coins > 0) {
+            // fetchSegmentValues();
+            spinSlotMachine();
+            addSpin();
+            updateCoins(-1);
+          }
         }
       }
     };
@@ -117,7 +165,7 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
             // The reel has stopped spinning at the desired segment
             setTimeout(() => {
               end();
-            }, 500);
+            }, 1000);
             const fruit = segmentToFruit(i, reel.reelSegment);
 
             if (fruit) {
@@ -152,8 +200,20 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
   //   reelRefs: reelRefs.map((ref) => ref.current),
   // }));
 
+  const [buttonZ, setButtonZ] = useState(0);
+  const [buttonY, setButtonY] = useState(-13);
+
+  const [textZ, setTextZ] = useState(1.6);
+  const [textY, setTextY] = useState(-14);
+
   return (
     <>
+      {/* <Casing
+        scale={[25, 25, 25]}
+        position={[0, -12, 13.8]}
+        rotation={[0.2,  Math.PI, 0]}
+      /> */}
+      {/* <Bars /> */}
       <Reel
         ref={reelRefs[0]}
         value={value[0]}
@@ -181,6 +241,47 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
         scale={[10, 10, 10]}
         reelSegment={0}
       />
+      <Button
+        scale={[0.055, 0.045, 0.045]}
+        position={[0, buttonY, buttonZ]}
+        rotation={[-Math.PI / 8, 0, 0]}
+        onClick={() => {
+          if (phase !== "spinning") {
+            if (coins > 0) {
+              spinSlotMachine();
+              addSpin();
+              updateCoins(-1);
+            }
+          }
+        }}
+        onPointerDown={() => {
+          setButtonZ(-1);
+          setButtonY(-13.5);
+        }}
+        onPointerUp={() => {
+          setButtonZ(0);
+          setButtonY(-13);
+        }}
+      />
+      <Text
+        color="white"
+        anchorX="center"
+        anchorY="middle"
+        position={[0, textY, textZ]}
+        rotation={[-Math.PI / 8, 0, 0]}
+        fontSize={3}
+        font="./fonts/nickname.otf"
+        onPointerDown={() => {
+          setTextZ(1.3);
+          setTextY(-14.1);
+        }}
+        onPointerUp={() => {
+          setTextZ(1.6);
+          setTextY(-14);
+        }}
+      >
+        {phase === "idle" ? "SPIN" : "SPINNING"}
+      </Text>
     </>
   );
 });

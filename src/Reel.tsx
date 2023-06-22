@@ -7,6 +7,7 @@ import { useFrame, useLoader } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 import { GLTF } from "three-stdlib";
+// import useGame from "./stores/store";
 import { WHEEL_SEGMENT } from "./utils/constants";
 
 type GLTFResult = GLTF & {
@@ -28,6 +29,8 @@ type ReelProps = JSX.IntrinsicElements["group"] & {
 
 const Reel = forwardRef(
   (props: ReelProps, ref: ForwardedRef<THREE.Group>): JSX.Element => {
+    // const sparkles = useGame((state) => state.sparkles);
+
     const { reelSegment } = props;
     const { nodes, materials } = useGLTF("/models/reel.glb") as GLTFResult;
     const reel = useRef<THREE.Group>(null);
@@ -61,6 +64,9 @@ const Reel = forwardRef(
         >
           <mesh castShadow receiveShadow geometry={nodes.Cylinder.geometry}>
             <meshStandardMaterial map={activeColorMap} />
+            {/* {sparkles && (
+              <Sparkles count={200} scale={2.5} size={10} speed={4} />
+            )} */}
           </mesh>
           <mesh
             castShadow
