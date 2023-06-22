@@ -52,7 +52,7 @@ const Modal = () => {
           <div className="modal-text">
             <img className="modal-image" src="./images/apple.png" />
             <img className="modal-image" src="./images/apple.png" />
-            <span> Pay  10</span>
+            <span> Pay 10</span>
             <img className="modal-image" src="./images/coin.png" />
           </div>
           <div className="modal-text">

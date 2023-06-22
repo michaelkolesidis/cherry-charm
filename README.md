@@ -4,24 +4,68 @@
 
 ## Information
 
+The game features a slot machine with three reels and four fruits, 🍒🍎🍌🍋. Fruit combinations reward the players with 🪙.
+
+## Features
+
+- Players can spin the slot machine either by clicking on the _Spin button_ or by pressing _Space_
+- Number of coins visible
+- Number or spins visible
+- _Spin button_ displays _Spinning_ while the reels are spinning, informing players when they can spin again
+- Orbit controls: clicking and holding mouse while moving the cursors allows players to change 3D view
+- Help button that open the help modal
+- Help modal that contains instructions and all winning fruit combinations
+- Game logo
+
+### Winning fruit combinations
+
+| Fruits | Rewards |
+| :----: | ------: |
+| 🍒🍒🍒 |   50 🪙 |
+| 🍎🍎🍎 |    20🪙 |
+| 🍌🍌🍌 |    15🪙 |
+| 🍋🍋🍋 |     3🪙 |
+|  🍒🍒  |    40🪙 |
+|  🍎🍎  |    10🪙 |
+|  🍌🍌  |     5🪙 |
+
+**Please note that slot machines only consider pairs a match if they are in order from left to right.**
+
+## Instructions
+
+In order to run the project locally you need to start
+
+**1.** Install the project dependencies:
+
+```
+yarn
+```
+
+**2.** Start Vite:
+
+```
+yarn dev
+```
+
+## Screenshots
+
+![Game](./screenshots/game.png)
+![Modal](./screenshots/modal.png)
+
 ## Technologies
 
 The core technologies of _Cherry Charm_ are JavaScript, WebGL and WebAssembly (WASM). The following libraries and tools are used:
 
-| Name               | License | Description                                                                                     |
-| ------------------ | :-----: | ----------------------------------------------------------------------------------------------- |
-| React              |   MIT   | Component-based, front-end interface library                                                    |
-| Three.js           |   MIT   | 3D graphics API for the web, based on WebGL                                                     |
-| React Three Fiber  |   MIT   | A React renderer for Three.js                                                                   |
-| Drei               |   MIT   | Useful helpers for React Three Fiber                                                            |
-| Rapier             | Apache  | Physics library                                                                                 |
-| React Three Rapier |   MIT   | Rapier physics in React                                                                         |
-| three-stdlib       |   MIT   | Stand-alone library of threejs examples designed to run without transpilation in node & browser |
-| R3F-Perf           |   MIT   | Performance monitoring                                                                          |
-| Leva               |   MIT   | React-first GUI control panel component                                                         |
-| Zustand            |   MIT   | State management                                                                                |
-| Vite               |   MIT   | Frontend development tooling                                                                    |
-|                    |         |                                                                                                 |
+| Name              | License | Description                                  |
+| ----------------- | :-----: | -------------------------------------------- |
+| React             |   MIT   | Component-based, front-end interface library |
+| Three.js          |   MIT   | 3D graphics API for the web, based on WebGL  |
+| React Three Fiber |   MIT   | A React renderer for Three.js                |
+| Drei              |   MIT   | Useful helpers for React Three Fiber         |
+| R3F-Perf          |   MIT   | Performance monitoring                       |
+| Zustand           |   MIT   | State management                             |
+| Vite              |   MIT   | Frontend development tooling                 |
+|                   |         |                                              |
 
 ## Assets
 
