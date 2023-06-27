@@ -81,7 +81,7 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
       // setSparkles(true);
       // setTimeout(() => {
       //   setSparkles(false);
-      // }, 1000); β
+      // }, 1000);
     }
   }, [phase]);
 
