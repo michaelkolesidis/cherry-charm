@@ -1,6 +1,18 @@
-// Copyright (c) 2023 Michael Kolesidis <michael.kolesidis@gmail.com>
-// Licensed under the GNU Affero General Public License v3.0.
-// https://www.gnu.org/licenses/gpl-3.0.html
+/*
+ *  Copyright (c) Michael Kolesidis <michael.kolesidis@gmail.com>
+ *  GNU Affero General Public License v3.0
+ *
+ *  ATTENTION! FREE SOFTWARE
+ *  This website is free software (free as in freedom).
+ *  If you use any part of this code, you must make your entire project's source code
+ *  publicly available under the same license. This applies whether you modify the code
+ *  or use it as it is in your own project. This ensures that all modifications and
+ *  derivative works remain free software, so that everyone can benefit.
+ *  If you are not willing to comply with these terms, you must refrain from using any part of this code.
+ *
+ *  For full license terms and conditions, you can read the AGPL-3.0 here:
+ *  https://www.gnu.org/licenses/agpl-3.0.html
+ */
 
 import {
   useRef,
@@ -8,17 +20,17 @@ import {
   forwardRef,
   useImperativeHandle,
   useState,
-} from "react";
-import { useFrame } from "@react-three/fiber";
-import { Text } from "@react-three/drei";
-import * as THREE from "three";
-import useGame from "./stores/store";
-import devLog from "./utils/functions/devLog";
-import segmentToFruit from "./utils/functions/segmentToFruit";
-import endgame from "./utils/functions/endgame";
-import { WHEEL_SEGMENT } from "./utils/constants";
-import Reel from "./Reel";
-import Button from "./Button";
+} from 'react';
+import { useFrame } from '@react-three/fiber';
+import { Text } from '@react-three/drei';
+import * as THREE from 'three';
+import useGame from './stores/store';
+import devLog from './utils/functions/devLog';
+import segmentToFruit from './utils/functions/segmentToFruit';
+import endgame from './utils/functions/endgame';
+import { WHEEL_SEGMENT } from './utils/constants';
+import Reel from './Reel';
+import Button from './Button';
 // import Casing from "./Casing";
 // import Bars from "./Bars";
 
@@ -72,9 +84,9 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
   // };
 
   useEffect(() => {
-    devLog("PHASE: " + phase);
+    devLog('PHASE: ' + phase);
 
-    if (phase === "idle") {
+    if (phase === 'idle') {
       // const winnings = endgame(fruit0, fruit1, fruit2);
       updateCoins(endgame(fruit0, fruit1, fruit2));
 
@@ -109,9 +121,9 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
         reel.reelSpinUntil = 0;
         reel.reelStopSegment = 0;
         // Clear fruits from previous spins
-        setFruit0("");
-        setFruit1("");
-        setFruit2("");
+        setFruit0('');
+        setFruit1('');
+        setFruit2('');
         const stopSegment = getRandomStopSegment();
         devLog(`Stop segment of reel ${reelIndex}: ${stopSegment}`);
 
@@ -126,8 +138,8 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.code === "Space") {
-        if (phase !== "spinning") {
+      if (event.code === 'Space') {
+        if (phase !== 'spinning') {
           if (coins > 0) {
             // fetchSegmentValues();
             spinSlotMachine();
@@ -138,10 +150,10 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
       }
     };
 
-    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener('keydown', handleKeyDown);
 
     return () => {
-      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener('keydown', handleKeyDown);
     };
   }, [phase]);
 
@@ -246,7 +258,7 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
         position={[0, buttonY, buttonZ]}
         rotation={[-Math.PI / 8, 0, 0]}
         onClick={() => {
-          if (phase !== "spinning") {
+          if (phase !== 'spinning') {
             if (coins > 0) {
               spinSlotMachine();
               addSpin();
@@ -280,7 +292,7 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
           setTextY(-14);
         }}
       >
-        {phase === "idle" ? "SPIN" : "SPINNING"}
+        {phase === 'idle' ? 'SPIN' : 'SPINNING'}
       </Text>
     </>
   );
