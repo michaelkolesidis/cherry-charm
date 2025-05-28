@@ -8,7 +8,7 @@ All of these are very worthwhile contributions and are more than welcome!
 
 All contributors will be added in the designated section in the project's readme file.
 
-### _Cherry Charm_ is in active development, so if you have any ideas or want to help, feel free to:
+### _Cherry Charm_ is in active development, so if you have any ideas or want to help, feel free to
 
 0. Start by creating an issue, so proposed changes can be discussed
 1. Fork the Project
