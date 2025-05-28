@@ -63,7 +63,7 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
     useRef<ReelGroup>(null),
   ];
 
-  const [stoppedReels, setStoppedReels] = useState(0);
+  const [, setStoppedReels] = useState(0);
 
   useEffect(() => {
     devLog('PHASE: ' + phase);
