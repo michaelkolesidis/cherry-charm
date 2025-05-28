@@ -12,6 +12,9 @@
 }
 
 .modal-box {
+   display: flex;
+  align-items: center;
+  justify-content: center;
   background: #ffffff;
   width: min(85vw, 550px);
   height: fit-content;
@@ -23,16 +26,21 @@
 }
 
 .modal-text {
-  font-family: "Inter", sans-serif;
+  font-family: 'Inter', sans-serif;
   margin: 2vh 0;
   text-align: left;
-  font-size: min(4vw, 20px);
+  font-size: min(3vw, 18px);
   text-align: center;
+  max-width: 30ch;
 }
 
 .modal-image {
-  width: min(6vw, 40px);
+  width: min(5vw, 37px);
   margin: min(0.1em, 4px);
+}
+
+.modal-license {
+  font-size: min(2vw, 12px);
 }
 
 span {
@@ -45,4 +53,8 @@ a:visited {
   text-decoration: none;
   color: #000;
   font-size: min(3vw, 20px);
+}
+
+a:hover {
+  text-decoration: underline;
 }

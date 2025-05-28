@@ -41,8 +41,6 @@ import devLog from './devLog';
 const endgame = (fruit0: string, fruit1: string, fruit2: string): number => {
   let coins = 0;
 
-  devLog('ENDGAME RUN<<<<<<<<<<<<<<<<<<<<<<<<');
-
   // Check for 3 cherries
   if (fruit0 === 'CHERRY' && fruit1 === 'CHERRY' && fruit2 === 'CHERRY') {
     coins = 50;

@@ -31,8 +31,6 @@ import endgame from './utils/functions/endgame';
 import { WHEEL_SEGMENT } from './utils/constants';
 import Reel from './Reel';
 import Button from './Button';
-// import Casing from "./Casing";
-// import Bars from "./Bars";
 
 interface ReelGroup extends THREE.Group {
   reelSegment?: number;
@@ -46,16 +44,12 @@ interface SlotMachineProps {
 }
 
 const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
-  // const valuesUrl = useGame((state) => state.valuesUrl);
   const fruit0 = useGame((state) => state.fruit0);
   const fruit1 = useGame((state) => state.fruit1);
   const fruit2 = useGame((state) => state.fruit2);
   const setFruit0 = useGame((state) => state.setFruit0);
   const setFruit1 = useGame((state) => state.setFruit1);
   const setFruit2 = useGame((state) => state.setFruit2);
-  // const receivedSegments = useGame((state) => state.receivedSegments);
-  // const setReceivedSegments = useGame((state) => state.setReceivedSegments);
-  // const setSparkles = useGame((state) => state.setSparkles);
   const phase = useGame((state) => state.phase);
   const start = useGame((state) => state.start);
   const end = useGame((state) => state.end);
@@ -63,143 +57,93 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
   const coins = useGame((state) => state.coins);
   const updateCoins = useGame((state) => state.updateCoins);
 
-  // const fetchSegmentValues = async () => {
-  //   try {
-  //     const requestOptions = {
-  //       method: "GET",
-  //       headers: { "Content-Type": "application/json" },
-  //     };
-  //     const response = await fetch(valuesUrl, requestOptions);
-  //     if (response.ok) {
-  //       const data = await response.json();
-
-  //       setReceivedSegments(data);
-  //       console.log(data[0]);
-  //     } else {
-  //       console.error("Failed to fetch scratch card: ", response.status);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error while fetching scratch card: ", error);
-  //   }
-  // };
-
-  useEffect(() => {
-    devLog('PHASE: ' + phase);
-
-    if (phase === 'idle') {
-      // const winnings = endgame(fruit0, fruit1, fruit2);
-      updateCoins(endgame(fruit0, fruit1, fruit2));
-
-      // setSparkles(true);
-      // setTimeout(() => {
-      //   setSparkles(false);
-      // }, 1000);
-    }
-  }, [phase]);
-
   const reelRefs = [
     useRef<ReelGroup>(null),
     useRef<ReelGroup>(null),
     useRef<ReelGroup>(null),
   ];
 
+  const [stoppedReels, setStoppedReels] = useState(0);
+
+  useEffect(() => {
+    devLog('PHASE: ' + phase);
+    if (phase === 'idle') {
+      updateCoins(endgame(fruit0, fruit1, fruit2));
+    }
+  }, [phase]);
+
   const spinSlotMachine = () => {
     start();
+    setStoppedReels(0);
+
     const min = 15;
     const max = 30;
     const getRandomStopSegment = () =>
       Math.floor(Math.random() * (max - min + 1)) + min;
 
-    const spinReel = (reelIndex: number) => {
-      const reel = reelRefs[reelIndex].current;
+    setFruit0('');
+    setFruit1('');
+    setFruit2('');
+
+    for (let i = 0; i < 3; i++) {
+      const reel = reelRefs[i].current;
       if (reel) {
-        // Reset rotation
         reel.rotation.x = 0;
-        // Reset all attributes
         reel.reelSegment = 0;
-        reel.reelPosition = 0;
-        reel.reelSpinUntil = 0;
+        reel.reelSpinUntil = getRandomStopSegment();
         reel.reelStopSegment = 0;
-        // Clear fruits from previous spins
-        setFruit0('');
-        setFruit1('');
-        setFruit2('');
-        const stopSegment = getRandomStopSegment();
-        devLog(`Stop segment of reel ${reelIndex}: ${stopSegment}`);
-
-        reel.reelSpinUntil = stopSegment;
       }
-    };
-
-    spinReel(0);
-    spinReel(1);
-    spinReel(2);
+    }
   };
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.code === 'Space') {
-        if (phase !== 'spinning') {
-          if (coins > 0) {
-            // fetchSegmentValues();
-            spinSlotMachine();
-            addSpin();
-            updateCoins(-1);
-          }
-        }
+      if (event.code === 'Space' && phase !== 'spinning' && coins > 0) {
+        spinSlotMachine();
+        addSpin();
+        updateCoins(-1);
       }
     };
 
     document.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [phase]);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [phase, coins]);
 
   useFrame(() => {
     for (let i = 0; i < reelRefs.length; i++) {
       const reel = reelRefs[i].current;
-      if (reel) {
-        if (reel.reelSpinUntil !== undefined) {
-          if (reel.reelSegment === undefined) {
-            reel.reelSegment = 0;
-          }
+      if (!reel || reel.reelSpinUntil === undefined) continue;
 
-          const targetRotationX =
-            (reel.reelSpinUntil - reel.reelSegment) * WHEEL_SEGMENT;
-          const rotationSpeed = 0.1;
+      reel.reelSegment = reel.reelSegment ?? 0;
 
-          if (reel.rotation.x < targetRotationX) {
-            reel.rotation.x += rotationSpeed;
-            reel.reelSegment = Math.floor(reel.rotation.x / WHEEL_SEGMENT);
-          } else if (reel.rotation.x >= targetRotationX) {
-            // The reel has stopped spinning at the desired segment
+      const targetRotationX =
+        (reel.reelSpinUntil - reel.reelSegment) * WHEEL_SEGMENT;
+      const rotationSpeed = 0.1;
+
+      if (reel.rotation.x < targetRotationX) {
+        reel.rotation.x += rotationSpeed;
+        reel.reelSegment = Math.floor(reel.rotation.x / WHEEL_SEGMENT);
+      } else {
+        const fruit = segmentToFruit(i, reel.reelSegment);
+        if (fruit) {
+          if (i === 0) setFruit0(fruit);
+          if (i === 1) setFruit1(fruit);
+          if (i === 2) setFruit2(fruit);
+        }
+
+        devLog(`Reel ${i + 1} stopped at segment ${reel.reelSegment} ${fruit}`);
+
+        reel.reelSpinUntil = undefined;
+
+        setStoppedReels((prev) => {
+          const newStopped = prev + 1;
+          if (newStopped === 3) {
             setTimeout(() => {
               end();
             }, 1000);
-            const fruit = segmentToFruit(i, reel.reelSegment);
-
-            if (fruit) {
-              switch (i) {
-                case 0:
-                  setFruit0(fruit);
-                  break;
-                case 1:
-                  setFruit1(fruit);
-                  break;
-                case 2:
-                  setFruit2(fruit);
-                  break;
-              }
-            }
-
-            devLog(
-              `Reel ${i + 1} stopped at segment ${reel.reelSegment} ${fruit}`
-            );
-            reel.reelSpinUntil = undefined; // Reset reelSpinUntil to stop further logging
           }
-        }
+          return newStopped;
+        });
       }
     }
   });
@@ -208,24 +152,13 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
     reelRefs,
   }));
 
-  // useImperativeHandle(ref, () => ({
-  //   reelRefs: reelRefs.map((ref) => ref.current),
-  // }));
-
   const [buttonZ, setButtonZ] = useState(0);
   const [buttonY, setButtonY] = useState(-13);
-
   const [textZ, setTextZ] = useState(1.6);
   const [textY, setTextY] = useState(-14);
 
   return (
     <>
-      {/* <Casing
-        scale={[25, 25, 25]}
-        position={[0, -12, 13.8]}
-        rotation={[0.2,  Math.PI, 0]}
-      /> */}
-      {/* <Bars /> */}
       <Reel
         ref={reelRefs[0]}
         value={value[0]}
@@ -258,12 +191,10 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
         position={[0, buttonY, buttonZ]}
         rotation={[-Math.PI / 8, 0, 0]}
         onClick={() => {
-          if (phase !== 'spinning') {
-            if (coins > 0) {
-              spinSlotMachine();
-              addSpin();
-              updateCoins(-1);
-            }
+          if (phase !== 'spinning' && coins > 0) {
+            spinSlotMachine();
+            addSpin();
+            updateCoins(-1);
           }
         }}
         onPointerDown={() => {

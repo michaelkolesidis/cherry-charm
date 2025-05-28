@@ -18,12 +18,12 @@ The game features a slot machine with three reels and four fruits, 🍒🍎🍌�
 
 - Fully responsive for desktop and mobile
 - Players can spin the slot machine either by clicking on the _Spin button_ or by pressing _Space_
-- Number of coins visible
-- Number or spins visible
+- Number of coins indicator
+- Number of spins indicator
 - _Spin button_ displays _Spinning_ while the reels are spinning, informing players when they can spin again
-- Orbit controls: clicking and holding mouse while moving the cursors allows players to change 3D view
-- Help button that open the help modal
-- Help modal that contains instructions and all winning fruit combinations
+- Orbit controls: click and drag to rotate the 3D view
+- Help button that opens the help modal
+- Help modal containing instructions and all winning fruit combinations
 - Game logo
 
 ### Winning fruit combinations
@@ -38,19 +38,19 @@ The game features a slot machine with three reels and four fruits, 🍒🍎🍌�
 |  🍎🍎  |    10🪙 |
 |  🍌🍌  |     5🪙 |
 
-**Please note that slot machines only consider pairs a match if they are in order from left to right.**
+**Slot machines only consider a pair a match if the fruits appear consecutively from left to right.**
 
 ## Instructions
 
-In order to run the project locally you need to start
+To run the project locally, follow these steps:
 
-**1.** Install the project dependencies:
+1. Install the project dependencies:
 
 ```
 yarn
 ```
 
-**2.** Start Vite:
+1. Start Vite:
 
 ```
 yarn dev
@@ -85,7 +85,7 @@ The core technologies of _Cherry Charm_ are JavaScript, WebGL and WebAssembly (W
 
 ## Assets
 
-All the assets used in _Cherry Charm_ (3D models, textures, images, sound effects, music etc.) are either using Creative Commons / Public Domain or they were created by me and can be freely used for commercial purposes. The main factor for choosing and using them was the need to deliver a prototype in a short time. Some (or most) of them should be changed to more appropriate/professional ones for commercial releases of the product.
+All the assets used in _Cherry Charm_ (3D models, textures, images, sound effects, music etc.) are either using Creative Commons  or in the Public Domain or they were created by me and can be freely used for commercial purposes. They were chosen primarily to enable rapid prototyping. Some (or most) of them should be replaced with more appropriate or professional assets.
 
 ## Software Used
 
@@ -111,7 +111,7 @@ Thank you so much for your interest in my project! If you want to go a step furt
 
 <a href="https://www.gnu.org/licenses/agpl-3.0.html"><img src="https://upload.wikimedia.org/wikipedia/commons/0/06/AGPLv3_Logo.svg" height="100px" /></a>
 
-Copyright (c) 2023 Michael Kolesidis<br>
+Copyright (c) Michael Kolesidis  
 Licensed under the [GNU Affero General Public License v3.0](https://www.gnu.org/licenses/agpl-3.0.html).
 
 🍒

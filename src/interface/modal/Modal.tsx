@@ -28,6 +28,11 @@ const Modal = () => {
             Click on the SPIN button or press SPACE to spin.
           </div>
           <div className="modal-text">
+            Cherry Charm only considers a pair a match if the fruits appear
+            consecutively from left to right
+          </div>
+          <div className="modal-text">Click and drag to rotate the 3D view</div>
+          <div className="modal-text">
             <img className="modal-image" src="./images/cherry.png" />
             <img className="modal-image" src="./images/cherry.png" />
             <img className="modal-image" src="./images/cherry.png" />
@@ -73,22 +78,34 @@ const Modal = () => {
             <span> Pay 5 </span>
             <img className="modal-image" src="./images/coin.png" />
           </div>
-          <div className="modal-text">
-            Please note that slot machines only consider pairs a match if they
-            are in order from left to right.
-          </div>
-          <div className="modal-text">
-            Extra: Click & hold anywhere, and move the cursor around to explore
-            the 3D scene!
-          </div>
           <div>
             <div>
-              <a href="https://github.com/michaelkolesidis/cherry-charm">
-                © 2023 Michael Kolesidis.
+              <a
+                className="modal-text"
+                href="https://michaelkolesidis.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                © Michael Kolesidis
               </a>
             </div>
-            <div className="modal-about">
-              <a href="https://www.gnu.org/licenses/agpl-3.0.en.html">
+            <div>
+              <a
+                className="modal-text"
+                href="https://github.com/michaelkolesidis/cherry-charm"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                GitHub
+              </a>
+            </div>
+            <div>
+              <a
+                className="modal-license modal-text"
+                href="https://www.gnu.org/licenses/agpl-3.0.en.html"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 Licensed under the GNU AGPL 3.0
               </a>
             </div>
