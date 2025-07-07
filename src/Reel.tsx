@@ -14,6 +14,7 @@
  *  https://www.gnu.org/licenses/agpl-3.0.html
  */
 
+import React from 'react';
 import { useRef, forwardRef, ForwardedRef } from 'react';
 import { useFrame, useLoader } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
@@ -33,18 +34,21 @@ type GLTFResult = GLTF & {
   };
 };
 
-type ReelProps = JSX.IntrinsicElements['group'] & {
+type ReelProps = React.JSX.IntrinsicElements['group'] & {
   value?: number;
   reelSegment: number;
   map: number;
 };
 
 const Reel = forwardRef(
-  (props: ReelProps, ref: ForwardedRef<THREE.Group>): JSX.Element => {
+  (props: ReelProps, ref: ForwardedRef<THREE.Group>): React.JSX.Element => {
     // const sparkles = useGame((state) => state.sparkles);
 
     const { reelSegment } = props;
-    const { nodes, materials } = useGLTF('/models/reel.glb') as GLTFResult;
+
+    const gltf = useGLTF('/models/reel.glb') as unknown as GLTFResult;
+    const { nodes, materials } = gltf;
+
     const reel = useRef<THREE.Group>(null);
 
     // Color maps

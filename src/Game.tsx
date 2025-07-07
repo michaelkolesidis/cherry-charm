@@ -15,13 +15,14 @@
  */
 
 import { useRef } from 'react';
+import * as THREE from 'three';
 import { OrbitControls } from '@react-three/drei';
 // import { Perf } from "r3f-perf";
 import Lights from './lights/Lights';
 import SlotMachine from './SlotMachine';
 
 const Game = () => {
-  const slotMachineRef = useRef();
+  const slotMachineRef = useRef<THREE.Group | null>(null);
 
   return (
     <>

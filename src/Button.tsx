@@ -14,6 +14,7 @@
  *  https://www.gnu.org/licenses/agpl-3.0.html
  */
 
+import * as React from 'react';
 import * as THREE from 'three';
 import { useGLTF } from '@react-three/drei';
 import { GLTF } from 'three-stdlib';
@@ -24,8 +25,9 @@ type GLTFResult = GLTF & {
   };
 };
 
-const Button = (props: JSX.IntrinsicElements['group']) => {
-  const { nodes } = useGLTF('/models/button.glb') as GLTFResult;
+const Button = (props: React.JSX.IntrinsicElements['group']) => {
+  const gltf = useGLTF('/models/button.glb') as unknown as GLTFResult;
+  const { nodes } = gltf;
 
   const material = new THREE.MeshStandardMaterial({ color: '#3b0873' });
 

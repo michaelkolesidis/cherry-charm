@@ -14,6 +14,7 @@
  *  https://www.gnu.org/licenses/agpl-3.0.html
  */
 
+import React from 'react';
 import * as THREE from 'three';
 import { useGLTF } from '@react-three/drei';
 import { GLTF } from 'three-stdlib';
@@ -29,8 +30,10 @@ type GLTFResult = GLTF & {
   };
 };
 
-const Casing = (props: JSX.IntrinsicElements['group']) => {
-  const { nodes, materials } = useGLTF('/models/casing.glb') as GLTFResult;
+const Casing = (props: React.JSX.IntrinsicElements['group']) => {
+  const gltf = useGLTF('/models/casing.glb') as unknown as GLTFResult;
+  const { nodes, materials } = gltf;
+
   return (
     <group {...props} dispose={null}>
       <mesh
