@@ -34,9 +34,10 @@ import Button from './Button';
 
 interface ReelGroup extends THREE.Group {
   reelSegment?: number;
-  reelPosition?: number;
   reelSpinUntil?: number;
   reelStopSegment?: number;
+  isSnapping?: boolean;
+  targetRotationX?: number;
 }
 
 interface SlotMachineProps {
@@ -90,8 +91,10 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
       if (reel) {
         reel.rotation.x = 0;
         reel.reelSegment = 0;
-        reel.reelSpinUntil = getRandomStopSegment();
-        reel.reelStopSegment = 0;
+        const stopSegment = getRandomStopSegment();
+        reel.reelSpinUntil = stopSegment;
+        reel.targetRotationX = stopSegment * WHEEL_SEGMENT;
+        reel.isSnapping = false;
       }
     }
   };
@@ -112,38 +115,58 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
   useFrame(() => {
     for (let i = 0; i < reelRefs.length; i++) {
       const reel = reelRefs[i].current;
-      if (!reel || reel.reelSpinUntil === undefined) continue;
+      if (
+        !reel ||
+        reel.reelSpinUntil === undefined ||
+        reel.targetRotationX === undefined
+      )
+        continue;
 
-      reel.reelSegment = reel.reelSegment ?? 0;
+      const rotationSpeed = 0.5;
 
-      const targetRotationX =
-        (reel.reelSpinUntil - reel.reelSegment) * WHEEL_SEGMENT;
-      const rotationSpeed = 0.1;
-
-      if (reel.rotation.x < targetRotationX) {
-        reel.rotation.x += rotationSpeed;
-        reel.reelSegment = Math.floor(reel.rotation.x / WHEEL_SEGMENT);
-      } else {
-        const fruit = segmentToFruit(i, reel.reelSegment);
-        if (fruit) {
-          if (i === 0) setFruit0(fruit);
-          if (i === 1) setFruit1(fruit);
-          if (i === 2) setFruit2(fruit);
+      if (!reel.isSnapping) {
+        if (reel.rotation.x < reel.targetRotationX - rotationSpeed) {
+          reel.rotation.x += rotationSpeed;
+          reel.reelSegment = Math.floor(reel.rotation.x / WHEEL_SEGMENT);
+        } else {
+          reel.isSnapping = true;
         }
+      }
 
-        devLog(`Reel ${i + 1} stopped at segment ${reel.reelSegment} ${fruit}`);
+      if (reel.isSnapping) {
+        reel.rotation.x = THREE.MathUtils.lerp(
+          reel.rotation.x,
+          reel.targetRotationX,
+          0.2
+        );
 
-        reel.reelSpinUntil = undefined;
+        if (Math.abs(reel.rotation.x - reel.targetRotationX) < 0.01) {
+          reel.rotation.x = reel.targetRotationX;
 
-        setStoppedReels((prev) => {
-          const newStopped = prev + 1;
-          if (newStopped === 3) {
-            setTimeout(() => {
-              end();
-            }, 1000);
+          const fruit = segmentToFruit(i, reel.reelSpinUntil);
+          if (fruit) {
+            if (i === 0) setFruit0(fruit);
+            if (i === 1) setFruit1(fruit);
+            if (i === 2) setFruit2(fruit);
           }
-          return newStopped;
-        });
+
+          devLog(
+            `Reel ${i + 1} stopped at segment ${reel.reelSpinUntil} (${fruit})`
+          );
+
+          reel.reelSpinUntil = undefined;
+          reel.isSnapping = false;
+
+          setStoppedReels((prev) => {
+            const newStopped = prev + 1;
+            if (newStopped === 3) {
+              setTimeout(() => {
+                end();
+              }, 1000);
+            }
+            return newStopped;
+          });
+        }
       }
     }
   });
