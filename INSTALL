@@ -1,0 +1,1 @@
+yarn add @react-three/drei @react-three/fiber r3f-perf react react-dom three zustand && yarn add -D @types/react @types/react-dom @types/three @typescript-eslint/eslint-plugin @typescript-eslint/parser @vitejs/plugin-react eslint eslint-plugin-react-hooks eslint-plugin-react-refresh typescript vite
