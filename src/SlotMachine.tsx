@@ -77,8 +77,8 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
     start();
     setStoppedReels(0);
 
-    const min = 15;
-    const max = 30;
+    const min = 10;
+    const max = 35;
     const getRandomStopSegment = () =>
       Math.floor(Math.random() * (max - min + 1)) + min;
 
@@ -122,7 +122,7 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
       )
         continue;
 
-      const rotationSpeed = 0.5;
+      const rotationSpeed = 0.1;
 
       if (!reel.isSnapping) {
         if (reel.rotation.x < reel.targetRotationX - rotationSpeed) {

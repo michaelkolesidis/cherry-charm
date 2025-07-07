@@ -26,6 +26,13 @@ The game features a slot machine with three reels and four fruits, 🍒🍎🍌�
 - Help modal containing instructions and all winning fruit combinations
 - Game logo
 
+### Roadmap
+
+- Add music and sound effects
+- Improve button functionality
+- Add winning effects and animations
+- Add slot machine casing
+
 ### Winning fruit combinations
 
 | Fruits | Rewards |
@@ -38,7 +45,7 @@ The game features a slot machine with three reels and four fruits, 🍒🍎🍌�
 |  🍎🍎  |    10🪙 |
 |  🍌🍌  |     5🪙 |
 
-**Slot machines only consider a pair a match if the fruits appear consecutively from left to right.**
+**The slot machine only considers it a match if the fruits appear consecutively from left to right**
 
 ## Instructions
 
