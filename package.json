@@ -1,6 +1,6 @@
 {
   "name": "cherry-charm",
-  "version": "2025.07.09.2",
+  "version": "2025.07.09.3",
   "author": "Michael Kolesidis <michael.kolesidis@gmail.com> (https://michaelkolesidis.com/)",
   "license": "AGPL-3.0-or-later",
   "description": "An online 3D slot machine game.",
