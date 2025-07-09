@@ -45,7 +45,7 @@ The game features a slot machine with three reels and four fruits, 🍒🍎🍌�
 |  🍎🍎  |    10🪙 |
 |  🍌🍌  |     5🪙 |
 
-**The slot machine only considers it a match if the fruits appear consecutively from left to right**
+**Cherry Charm only considers it a match if the fruits appear consecutively from left to right**
 
 ## Instructions
 

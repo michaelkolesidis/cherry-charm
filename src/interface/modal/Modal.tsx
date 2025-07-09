@@ -28,7 +28,7 @@ const Modal = () => {
             Click on the SPIN button or press SPACE to spin.
           </div>
           <div className="modal-text">
-            Cherry Charm only considers a pair a match if the fruits appear
+            Cherry Charm only considers it a match if the fruits appear
             consecutively from left to right
           </div>
           <div className="modal-text">Click and drag to rotate the 3D view</div>
