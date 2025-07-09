@@ -9,24 +9,25 @@ const now = new Date();
 const year = now.getFullYear();
 const month = String(now.getMonth() + 1).padStart(2, '0');
 const day = String(now.getDate()).padStart(2, '0');
-const today = `${year}${month}${day}`; // yyyymmdd format, no dots
+const monthDay = `${month}${day}`; // MMDD combined
+const today = `${year}.${monthDay}`; // YYYY.MMDD
 
 // Parse current version from package.json
 const currentVersion = pkg.version || '';
-// Extract date part and count part from current version (expects yyyymmdd.N)
-const match = currentVersion.match(/^(\d{8})\.(\d+)$/);
+// Extract date part and count part from current version (expects YYYY.MMDD.N)
+const match = currentVersion.match(/^(\d{4})\.(\d{4})\.(\d+)$/);
 let currentDatePart = '';
 let currentCount = 0;
 
 if (match) {
-  currentDatePart = match[1];
-  currentCount = parseInt(match[2], 10);
+  currentDatePart = `${match[1]}.${match[2]}`;
+  currentCount = parseInt(match[3], 10);
 }
 
 // Calculate new count: increment if same date, else start at 1
 const newCount = currentDatePart === today ? currentCount + 1 : 1;
 
-// Compose new version string with one dot before the count
+// Compose new version string with dots in correct places
 const newVersion = `${today}.${newCount}`;
 
 // Update package.json version
