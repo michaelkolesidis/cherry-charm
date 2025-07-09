@@ -1,1 +1,1 @@
-node scripts/update-version.cjs
+node scripts/update-version.js

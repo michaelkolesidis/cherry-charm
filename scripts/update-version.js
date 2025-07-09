@@ -1,8 +1,14 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-const packagePath = path.join(__dirname, '..', 'package.json');
-const pkg = JSON.parse(fs.readFileSync(packagePath, 'utf-8'));
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const packagePath = path.resolve(__dirname, '..', 'package.json');
+
+const pkgRaw = fs.readFileSync(packagePath, 'utf-8');
+const pkg = JSON.parse(pkgRaw);
 
 const now = new Date();
 const year = now.getFullYear();
@@ -13,7 +19,6 @@ const today = `${year}.${month}.${day}`;
 
 // Parse current version from package.json
 const currentVersion = pkg.version || '';
-// Match version format: YYYY.M.D.N
 const match = currentVersion.match(/^(\d{4})\.(\d{1,2})\.(\d{1,2})\.(\d+)$/);
 
 let currentDatePart = '';
@@ -27,7 +32,6 @@ if (match) {
   currentCount = parseInt(match[4], 10);
 }
 
-// Increment count if date matches today, else reset to 1
 const newCount = currentDatePart === today ? currentCount + 1 : 1;
 
 const newVersion = `${today}.${newCount}`;
