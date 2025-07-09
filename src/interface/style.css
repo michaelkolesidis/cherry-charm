@@ -45,7 +45,7 @@
 
 .win-number {
   font-size: min(65px, 10vw);
-  text-shadow: min(7px, 1vw) min(7px, 1vw) 0px #6913c5;
+  text-shadow: min(5px, 1vw) min(5px, 1vw) 0px #6913c5;
   width: 400px;
 }
 
@@ -56,7 +56,7 @@
   margin: auto auto 0.2em auto;
   width: 100%;
   font-size: min(65px, 10vw);
-  text-shadow: min(7px, 1vw) min(7px, 1vw) 0px #6913c5;
+  text-shadow: min(5px, 1vw) min(5px, 1vw) 0px #6913c5;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -79,13 +79,19 @@
   margin-left: 0.25em;
 }
 
+.hidden {
+  visibility: hidden;
+  pointer-events: none;
+}
+
 .bet-control {
   margin: 0;
   font-size: 50px;
-  line-height: 30px;
+  line-height: 31px;
   text-shadow: none;
   cursor: pointer;
   pointer-events: all;
+  text-shadow: min(5px, 1vw) 0 0px #6913c5;
 }
 
 .bet-control:hover {
@@ -106,7 +112,7 @@
   font-size: min(65px, 10vw);
   width: 400px;
   text-align: right;
-  text-shadow: min(7px, 1vw) min(7px, 1vw) 0px #6913c5;
+  text-shadow: min(5px, 1vw) min(5px, 1vw) 0px #6913c5;
 }
 
 .coins-image {

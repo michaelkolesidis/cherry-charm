@@ -21,7 +21,9 @@ import useAnimatedNumber from '../hooks/useAnimatedNumber';
 import './style.css';
 
 const Interface = () => {
-  const { modal, coins, win, bet, updateBet } = useGame((state) => state);
+  const { modal, coins, win, bet, phase, updateBet } = useGame(
+    (state) => state
+  );
   const animatedCoins = useAnimatedNumber(coins);
   return (
     <>
@@ -54,7 +56,7 @@ const Interface = () => {
         <div className="bet-section">
           <div className="bet-label">BET:</div>
           <div className="bet-amount">{bet}</div>
-          <div id="bet-controls">
+          <div id="bet-controls" className={phase === 'idle' ? '' : 'hidden'}>
             <div
               id="increase-bet"
               className="bet-control"

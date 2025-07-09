@@ -24,7 +24,7 @@ const devLog = (message: string): void => {
   const url = window.location.href;
 
   // Check if the URL is the production URL
-  const domain = 'cherry-charm';
+  const domain = 'cherrycharm';
 
   // Only log in console if in development
   if (url.indexOf(domain) === -1) {
