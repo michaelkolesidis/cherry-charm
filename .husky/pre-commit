@@ -1,4 +1,4 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-node scripts/update-version.js
+node scripts/update-version.cjs
