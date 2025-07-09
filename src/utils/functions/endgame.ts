@@ -39,6 +39,7 @@ import devLog from './devLog';
  * ```
  */
 const endgame = (fruit0: string, fruit1: string, fruit2: string): number => {
+  console.log('ENDGAME RUNS');
   let coins = 0;
 
   // Check for 3 cherries
