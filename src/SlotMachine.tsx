@@ -22,12 +22,11 @@ import {
   useState,
 } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { Text } from '@react-three/drei';
 import * as THREE from 'three';
 import useGame from './stores/store';
 import devLog from './utils/functions/devLog';
 import segmentToFruit from './utils/functions/segmentToFruit';
-import endgame from './utils/functions/endgame';
+import calculateWin from './utils/functions/calculateWin';
 import { WHEEL_SEGMENT } from './utils/constants';
 import Reel from './Reel';
 import Button from './Button';
@@ -45,18 +44,22 @@ interface SlotMachineProps {
 }
 
 const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
-  const fruit0 = useGame((state) => state.fruit0);
-  const fruit1 = useGame((state) => state.fruit1);
-  const fruit2 = useGame((state) => state.fruit2);
-  const setFruit0 = useGame((state) => state.setFruit0);
-  const setFruit1 = useGame((state) => state.setFruit1);
-  const setFruit2 = useGame((state) => state.setFruit2);
-  const phase = useGame((state) => state.phase);
-  const start = useGame((state) => state.start);
-  const end = useGame((state) => state.end);
-  const addSpin = useGame((state) => state.addSpin);
-  const coins = useGame((state) => state.coins);
-  const updateCoins = useGame((state) => state.updateCoins);
+  const {
+    fruit0,
+    fruit1,
+    fruit2,
+    setFruit0,
+    setFruit1,
+    setFruit2,
+    setWin,
+    phase,
+    start,
+    end,
+    addSpin,
+    bet,
+    coins,
+    updateCoins,
+  } = useGame((state) => state);
 
   const reelRefs = [
     useRef<ReelGroup>(null),
@@ -69,11 +72,14 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
   useEffect(() => {
     devLog('PHASE: ' + phase);
     if (phase === 'idle') {
-      updateCoins(endgame(fruit0, fruit1, fruit2));
+      const coinsWon = calculateWin(fruit0, fruit1, fruit2) * bet;
+      setWin(coinsWon);
+      updateCoins(coinsWon);
     }
   }, [phase]);
 
   const spinSlotMachine = () => {
+    setWin(0);
     start();
     setStoppedReels(0);
 
@@ -104,7 +110,7 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
       if (event.code === 'Space' && phase !== 'spinning' && coins > 0) {
         spinSlotMachine();
         addSpin();
-        updateCoins(-1);
+        updateCoins(-bet);
       }
     };
 
@@ -177,8 +183,6 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
 
   const [buttonZ, setButtonZ] = useState(0);
   const [buttonY, setButtonY] = useState(-13);
-  const [textZ, setTextZ] = useState(1.6);
-  const [textY, setTextY] = useState(-14);
 
   return (
     <>
@@ -217,7 +221,7 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
           if (phase !== 'spinning' && coins > 0) {
             spinSlotMachine();
             addSpin();
-            updateCoins(-1);
+            updateCoins(-bet);
           }
         }}
         onPointerDown={() => {
@@ -229,25 +233,6 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
           setButtonY(-13);
         }}
       />
-      <Text
-        color="white"
-        anchorX="center"
-        anchorY="middle"
-        position={[0, textY, textZ]}
-        rotation={[-Math.PI / 8, 0, 0]}
-        fontSize={3}
-        font="./fonts/nickname.otf"
-        onPointerDown={() => {
-          setTextZ(1.3);
-          setTextY(-14.1);
-        }}
-        onPointerUp={() => {
-          setTextZ(1.6);
-          setTextY(-14);
-        }}
-      >
-        {phase === 'idle' ? 'SPIN' : 'SPINNING'}
-      </Text>
     </>
   );
 });

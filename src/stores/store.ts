@@ -23,6 +23,10 @@ type State = {
   // Endpoint
   // valuesUrl: string;
 
+  // Mobile
+  isMobile: boolean;
+  setIsMobile: (value: boolean) => void;
+
   // Modal
   modal: boolean;
   setModal: (isOpen: boolean) => void;
@@ -41,11 +45,19 @@ type State = {
 
   // Bars
   showBars: boolean;
-  toggleShowBars: (showBars: boolean) => void;
+  toggleBars: () => void;
 
   // Segments
   // receivedSegments: number[];
   // setReceivedSegments: (segments: number[]) => void;
+
+  // Bet
+  bet: number;
+  updateBet: (amount: number) => void;
+
+  // Win
+  win: number;
+  setWin: (amount: number) => void;
 
   // Games
   spins: number;
@@ -84,6 +96,12 @@ const useGame = create<State>()(
     //   : "https://cherry-charm.onrender.com/values",
 
     /**
+     * Mobile
+     */
+    isMobile: window.innerWidth < 768,
+    setIsMobile: (value: boolean) => set(() => ({ isMobile: value })),
+
+    /**
      *  Modal
      *  (is the help modal open)
      */
@@ -100,11 +118,13 @@ const useGame = create<State>()(
      * Coins
      *
      */
-    coins: 20,
+    coins: 100,
     updateCoins: (amount: number) => {
       set((state) => {
+        const newCoins = state.coins + amount;
         return {
-          coins: state.coins + amount,
+          coins: newCoins,
+          bet: state.bet > newCoins ? newCoins : state.bet,
         };
       });
     },
@@ -141,11 +161,9 @@ const useGame = create<State>()(
     /**
      * Bars
      */
-    showBars: true,
-    toggleShowBars: () => {
-      set((state) => ({
-        showBars: !state.showBars,
-      }));
+    showBars: false,
+    toggleBars: () => {
+      set((state) => ({ showBars: !state.showBars }));
     },
 
     /**
@@ -162,6 +180,30 @@ const useGame = create<State>()(
     // },
 
     /**
+     * Bet
+     */
+    bet: 1,
+    updateBet: (amount: number) => {
+      set((state) => {
+        const newBet = state.bet + amount;
+        const clampedBet = Math.max(1, Math.min(newBet, state.coins));
+        return { bet: clampedBet };
+      });
+    },
+
+    /**
+     * Win
+     */
+    win: 0,
+    setWin: (amount: number) => {
+      set((state) => {
+        return {
+          win: amount,
+        };
+      });
+    },
+
+    /**
      * Games
      *
      */
@@ -173,6 +215,7 @@ const useGame = create<State>()(
         };
       });
     },
+
     // wins: 0,
     // won: () => {
     //   set((state) => {

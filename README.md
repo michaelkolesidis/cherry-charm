@@ -16,22 +16,26 @@ The game features a slot machine with three reels and four fruits, 🍒🍎🍌�
 
 ## Features
 
-- Fully responsive for desktop and mobile
+- Fully responsive for desktop and partially for mobile
 - Players can spin the slot machine either by clicking on the _Spin button_ or by pressing _Space_
 - Number of coins indicator
-- Number of spins indicator
+- Win indicator
+- Adjustable bet size
+- Bet size capped from 1 to total number of coins
 - _Spin button_ displays _Spinning_ while the reels are spinning, informing players when they can spin again
 - Orbit controls: click and drag to rotate the 3D view
 - Help button that opens the help modal
 - Help modal containing instructions and all winning fruit combinations
+- Lines bars
+- Ability to toggle line bars from help modal
 - Game logo
 
 ### Roadmap
 
 - Add music and sound effects
-- Improve button functionality
 - Add winning effects and animations
-- Add slot machine casing
+- Fully responsive for mobile
+- Backend integration
 
 ### Winning fruit combinations
 
@@ -40,7 +44,7 @@ The game features a slot machine with three reels and four fruits, 🍒🍎🍌�
 | 🍒🍒🍒 |   50 🪙 |
 | 🍎🍎🍎 |    20🪙 |
 | 🍌🍌🍌 |    15🪙 |
-| 🍋🍋🍋 |     3🪙 |
+| 🍋🍋🍋 |     5🪙 |
 |  🍒🍒  |    40🪙 |
 |  🍎🍎  |    10🪙 |
 |  🍌🍌  |     5🪙 |

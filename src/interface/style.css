@@ -6,28 +6,81 @@
   color: #fff;
 }
 
-.logo {
-  width: min(300px, 25vw);
-  transform: rotate(-5deg);
+#logo-section {
+  display: flex;
+  flex-direction: row;
   position: fixed;
   top: 0;
   left: 0;
-  margin: 0.5em;
-  cursor: pointer;
   z-index: 1;
+  margin: 0.5em;
 }
 
-.spins-section {
+.logo {
+  width: min(300px, 25vw);
+  transform: rotate(-5deg);
+  cursor: pointer;
+}
+
+#version {
+  color: #f7f7f7;
+  font-family: monospace;
+}
+
+.win-section {
   position: fixed;
   bottom: 0;
   left: 0;
   margin: 1em;
 }
 
-.spins-number {
-  font-size: min(130px, 11vw);
+.win-number {
+  font-size: min(80px, 10vw);
   text-shadow: min(7px, 1vw) min(7px, 1vw) 0px #6913c5;
   width: 400px;
+}
+
+.bet-section {
+  position: fixed;
+  bottom: 0;
+  text-align: center;
+  margin: auto auto 0.2em auto;
+  width: 100%;
+  font-size: min(80px, 10vw);
+  text-shadow: min(7px, 1vw) min(7px, 1vw) 0px #6913c5;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.1em;
+}
+
+.bet-label {
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.bet-amount {
+  width: 150px;
+  white-space: nowrap;
+  text-align: center;
+}
+
+#bet-controls {
+  margin-left: 0.25em;
+}
+
+.bet-control {
+  margin: 0;
+  font-size: 50px;
+  line-height: 30px;
+  text-shadow: none;
+  cursor: pointer;
+  pointer-events: all;
+}
+
+.bet-control:hover {
+  color: #ffc400;
 }
 
 .coins-section {
@@ -41,7 +94,7 @@
 }
 
 .coins-number {
-  font-size: min(130px, 11vw);
+  font-size: min(80px, 10vw);
   width: 400px;
   text-align: right;
   text-shadow: min(7px, 1vw) min(7px, 1vw) 0px #6913c5;
@@ -49,6 +102,6 @@
 
 .coins-image {
   margin-top: 1vw;
-  margin-left: 2vw;
-  width: min(130px, 11vw);
+  margin-left: 1vw;
+  width: min(80px, 10vw);
 }

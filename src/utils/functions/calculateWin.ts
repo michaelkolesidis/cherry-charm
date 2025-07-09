@@ -28,18 +28,21 @@ import devLog from './devLog';
  * An example of a win
  * ```
  * // Returns 50
- * endgame("CHERRY", "CHERRY", "CHERRY")
+ * calculateWin("CHERRY", "CHERRY", "CHERRY")
  * ```
  *
  * @example
  * An example of a loss
  * * ```
  * // Returns 0
- * endgame("CHERRY", "APPLE", "APPLE")
+ * calculateWin("CHERRY", "APPLE", "APPLE")
  * ```
  */
-const endgame = (fruit0: string, fruit1: string, fruit2: string): number => {
-  console.log('ENDGAME RUNS');
+const calculateWin = (
+  fruit0: string,
+  fruit1: string,
+  fruit2: string
+): number => {
   let coins = 0;
 
   // Check for 3 cherries
@@ -68,7 +71,7 @@ const endgame = (fruit0: string, fruit1: string, fruit2: string): number => {
   }
   // Check for 3 lemons
   else if (fruit0 === 'LEMON' && fruit1 === 'LEMON' && fruit2 === 'LEMON') {
-    coins = 3;
+    coins = 5;
   }
 
   if (coins > 0) {
@@ -79,4 +82,4 @@ const endgame = (fruit0: string, fruit1: string, fruit2: string): number => {
   return coins;
 };
 
-export default endgame;
+export default calculateWin;

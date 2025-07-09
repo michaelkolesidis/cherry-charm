@@ -18,6 +18,8 @@ import * as React from 'react';
 import * as THREE from 'three';
 import { useGLTF } from '@react-three/drei';
 import { GLTF } from 'three-stdlib';
+import { Text } from '@react-three/drei';
+import useGame from './stores/store';
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -26,13 +28,24 @@ type GLTFResult = GLTF & {
 };
 
 const Button = (props: React.JSX.IntrinsicElements['group']) => {
+  const { phase } = useGame((state) => state);
+
   const gltf = useGLTF('/models/button.glb') as unknown as GLTFResult;
   const { nodes } = gltf;
 
   const material = new THREE.MeshStandardMaterial({ color: '#3b0873' });
 
   return (
-    <group {...props} dispose={null}>
+    <group
+      {...props}
+      dispose={null}
+      onPointerOver={() => {
+        document.body.style.cursor = 'pointer';
+      }}
+      onPointerOut={() => {
+        document.body.style.cursor = 'default';
+      }}
+    >
       <group
         position={[713.17, 1157.193, -723.814]}
         rotation={[-Math.PI / 2, 0, 0]}
@@ -46,6 +59,17 @@ const Button = (props: React.JSX.IntrinsicElements['group']) => {
           position={[-5.454, -37.484, -26.142]}
         ></mesh>
       </group>
+      <Text
+        color="white"
+        anchorX="center"
+        anchorY="middle"
+        position={[0, -36, 22]}
+        fontSize={65}
+        scale={[0.8, 1, 1]}
+        font="./fonts/nickname.otf"
+      >
+        {phase === 'idle' ? 'SPIN' : 'SPINNING'}
+      </Text>
     </group>
   );
 };

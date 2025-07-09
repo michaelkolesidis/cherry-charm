@@ -15,15 +15,14 @@
  */
 
 import useGame from '../stores/store';
-import Modal from './modal/Modal';
+import HelpModal from './helpModal/HelpModal';
 import HelpButton from './helpButton/HelpButton';
+import useAnimatedNumber from '../hooks/useAnimatedNumber';
 import './style.css';
 
 const Interface = () => {
-  // const phase = useGame((state) => state.phase);
-  const modal = useGame((state) => state.modal);
-  const coins = useGame((state) => state.coins);
-  const spins = useGame((state) => state.spins);
+  const { modal, coins, win, bet, updateBet } = useGame((state) => state);
+  const animatedCoins = useAnimatedNumber(coins);
 
   return (
     <>
@@ -31,30 +30,53 @@ const Interface = () => {
       <HelpButton />
 
       {/* Modal */}
-      {modal && <Modal />}
+      {modal && <HelpModal />}
 
       {/* Logo */}
-      <a
-        href="https://github.com/michaelkolesidis/cherry-charm"
-        target="_blank"
-      >
-        <img className="logo" src="./images/logo.png" alt="" />
-      </a>
+      <div id="logo-section">
+        <a
+          href="https://github.com/michaelkolesidis/cherry-charm"
+          target="_blank"
+        >
+          <img className="logo" src="./images/logo.png" alt="" />
+        </a>
+
+        <div id="version">{__APP_VERSION__}</div>
+      </div>
 
       <div className="interface">
         {/* Coins */}
         <div className="coins-section">
-          <div className="coins-number">{coins}</div>
+          <div className="coins-number">{animatedCoins}</div>
           <img className="coins-image" src="./images/coin.png" />
         </div>
 
-        {/* Spins */}
-        <div className="spins-section">
-          <div className="spins-number">{spins}</div>
+        {/* Bet */}
+        <div className="bet-section">
+          <div className="bet-label">BET:</div>
+          <div className="bet-amount">{bet}</div>
+          <div id="bet-controls">
+            <div
+              id="increase-bet"
+              className="bet-control"
+              onClick={() => updateBet(1)}
+            >
+              ⏶
+            </div>
+            <div
+              id="decrease-bet"
+              className="bet-control"
+              onClick={() => updateBet(-1)}
+            >
+              ⏷
+            </div>
+          </div>
         </div>
 
-        {/* Phase */}
-        {/* <div >{phase.toUpperCase()}</div> */}
+        {/* Spins */}
+        <div className="win-section">
+          <div className="win-number">WIN: {win}</div>
+        </div>
       </div>
     </>
   );
