@@ -196,7 +196,7 @@ const useGame = create<State>()(
      */
     win: 0,
     setWin: (amount: number) => {
-      set((state) => {
+      set(() => {
         return {
           win: amount,
         };
