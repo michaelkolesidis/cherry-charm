@@ -39,6 +39,10 @@ type State = {
   fruit2: Fruit | '';
   setFruit2: (fr: Fruit | '') => void;
 
+  // Bars
+  showBars: boolean;
+  toggleShowBars: (showBars: boolean) => void;
+
   // Segments
   // receivedSegments: number[];
   // setReceivedSegments: (segments: number[]) => void;
@@ -132,6 +136,16 @@ const useGame = create<State>()(
           fruit2: fr,
         };
       });
+    },
+
+    /**
+     * Bars
+     */
+    showBars: true,
+    toggleShowBars: () => {
+      set((state) => ({
+        showBars: !state.showBars,
+      }));
     },
 
     /**
