@@ -23,7 +23,6 @@ import './style.css';
 const Interface = () => {
   const { modal, coins, win, bet, updateBet } = useGame((state) => state);
   const animatedCoins = useAnimatedNumber(coins);
-
   return (
     <>
       {/* Help Button */}
