@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { execSync } from 'child_process';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -38,5 +39,8 @@ const newVersion = `${today}.${newCount}`;
 
 pkg.version = newVersion;
 fs.writeFileSync(packagePath, JSON.stringify(pkg, null, 2));
+
+// Stage it so it's part of the commit
+execSync('git add package.json');
 
 console.log(`✅ Updated version to ${newVersion}`);
