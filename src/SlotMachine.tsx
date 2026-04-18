@@ -58,7 +58,6 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
     end,
     addSpin,
     bet,
-    coins,
     updateCoins,
   } = useGame((state) => state);
 
@@ -77,10 +76,12 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
       setWin(coinsWon);
       updateCoins(coinsWon);
     }
-  }, [phase]);
+  }, [phase, fruit0, fruit1, fruit2, bet, setWin, updateCoins]);
 
   const handleSpinAction = useCallback(() => {
     const currentState = useGame.getState();
+
+    // Prevent spinning if already spinning or if balance is too low
     if (
       currentState.phase === 'spinning' ||
       currentState.coins < currentState.bet
