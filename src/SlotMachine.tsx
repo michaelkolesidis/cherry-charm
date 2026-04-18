@@ -1,17 +1,17 @@
 /*
- *  Copyright (c) Michael Kolesidis <michael.kolesidis@gmail.com>
- *  GNU Affero General Public License v3.0
+ * Copyright (c) Michael Kolesidis <michael.kolesidis@gmail.com>
+ * GNU Affero General Public License v3.0
  *
- *  ATTENTION! FREE SOFTWARE
- *  This website is free software (free as in freedom).
- *  If you use any part of this code, you must make your entire project's source code
- *  publicly available under the same license. This applies whether you modify the code
- *  or use it as it is in your own project. This ensures that all modifications and
- *  derivative works remain free software, so that everyone can benefit.
- *  If you are not willing to comply with these terms, you must refrain from using any part of this code.
+ * ATTENTION! FREE SOFTWARE
+ * This website is free software (free as in freedom).
+ * If you use any part of this code, you must make your entire project's source code
+ * publicly available under the same license. This applies whether you modify the code
+ * or use it as it is in your own project. This ensures that all modifications and
+ * derivative works remain free software, so that everyone can benefit.
+ * If you are not willing to comply with these terms, you must refrain from using any part of this code.
  *
- *  For full license terms and conditions, you can read the AGPL-3.0 here:
- *  https://www.gnu.org/licenses/agpl-3.0.html
+ * For full license terms and conditions, you can read the AGPL-3.0 here:
+ * https://www.gnu.org/licenses/agpl-3.0.html
  */
 
 import {
@@ -20,6 +20,7 @@ import {
   forwardRef,
   useImperativeHandle,
   useState,
+  useCallback,
 } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
@@ -78,7 +79,20 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
     }
   }, [phase]);
 
-  const spinSlotMachine = () => {
+  const handleSpinAction = useCallback(() => {
+    const currentState = useGame.getState();
+    if (
+      currentState.phase === 'spinning' ||
+      currentState.coins < currentState.bet
+    ) {
+      return;
+    }
+
+    // Deduct the cost immediately
+    updateCoins(-bet);
+    addSpin();
+
+    // Reset the machine state
     setWin(0);
     start();
     setStoppedReels(0);
@@ -92,6 +106,7 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
     setFruit1('');
     setFruit2('');
 
+    // Set up reel animations
     for (let i = 0; i < 3; i++) {
       const reel = reelRefs[i].current;
       if (reel) {
@@ -103,20 +118,28 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
         reel.isSnapping = false;
       }
     }
-  };
+  }, [
+    bet,
+    updateCoins,
+    addSpin,
+    setWin,
+    start,
+    setFruit0,
+    setFruit1,
+    setFruit2,
+  ]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.code === 'Space' && phase !== 'spinning' && coins > 0) {
-        spinSlotMachine();
-        addSpin();
-        updateCoins(-bet);
+      if (event.code === 'Space') {
+        event.preventDefault();
+        handleSpinAction();
       }
     };
 
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [phase, coins]);
+  }, [handleSpinAction]);
 
   useFrame(() => {
     for (let i = 0; i < reelRefs.length; i++) {
@@ -143,7 +166,7 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
         reel.rotation.x = THREE.MathUtils.lerp(
           reel.rotation.x,
           reel.targetRotationX,
-          0.2
+          0.2,
         );
 
         if (Math.abs(reel.rotation.x - reel.targetRotationX) < 0.01) {
@@ -157,7 +180,7 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
           }
 
           devLog(
-            `Reel ${i + 1} stopped at segment ${reel.reelSpinUntil} (${fruit})`
+            `Reel ${i + 1} stopped at segment ${reel.reelSpinUntil} (${fruit})`,
           );
 
           reel.reelSpinUntil = undefined;
@@ -217,12 +240,11 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
         scale={[0.055, 0.045, 0.045]}
         position={[0, buttonY, buttonZ]}
         rotation={[-Math.PI / 8, 0, 0]}
-        onClick={() => {
-          if (phase !== 'spinning' && coins > 0) {
-            spinSlotMachine();
-            addSpin();
-            updateCoins(-bet);
+        onClick={(e) => {
+          if (e.target instanceof HTMLElement) {
+            e.target.blur();
           }
+          handleSpinAction();
         }}
         onPointerDown={() => {
           setButtonZ(-1);
