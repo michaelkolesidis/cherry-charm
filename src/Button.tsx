@@ -30,7 +30,7 @@ type GLTFResult = GLTF & {
 const Button = (props: React.JSX.IntrinsicElements['group']) => {
   const { phase } = useGame((state) => state);
 
-  const gltf = useGLTF('/models/button.glb') as unknown as GLTFResult;
+  const gltf = useGLTF('models/button.glb') as unknown as GLTFResult;
   const { nodes } = gltf;
 
   const material = new THREE.MeshStandardMaterial({ color: '#3b0873' });
@@ -74,5 +74,5 @@ const Button = (props: React.JSX.IntrinsicElements['group']) => {
   );
 };
 
-useGLTF.preload('/models/button.glb');
+useGLTF.preload('models/button.glb');
 export default Button;

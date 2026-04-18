@@ -31,7 +31,7 @@ type GLTFResult = GLTF & {
 };
 
 const Casing = (props: React.JSX.IntrinsicElements['group']) => {
-  const gltf = useGLTF('/models/casing.glb') as unknown as GLTFResult;
+  const gltf = useGLTF('models/casing.glb') as unknown as GLTFResult;
   const { nodes, materials } = gltf;
 
   return (
@@ -52,5 +52,5 @@ const Casing = (props: React.JSX.IntrinsicElements['group']) => {
   );
 };
 
-useGLTF.preload('/models/casing.glb');
+useGLTF.preload('models/casing.glb');
 export default Casing;
