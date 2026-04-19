@@ -14,7 +14,7 @@
  *  https://www.gnu.org/licenses/agpl-3.0.html
  */
 
-import devLog from './devLog';
+// import devLog from './devLog';
 
 /**
  * Returns the amount of coins won when at the end of a spin
@@ -41,7 +41,7 @@ import devLog from './devLog';
 const calculateWin = (
   fruit0: string,
   fruit1: string,
-  fruit2: string
+  fruit2: string,
 ): number => {
   let coins = 0;
 
@@ -74,9 +74,9 @@ const calculateWin = (
     coins = 5;
   }
 
-  if (coins > 0) {
-    devLog(`Coins won: ${coins}`);
-  }
+  // if (coins > 0) {
+    // devLog(`Coins won: ${coins}`);
+  // }
 
   // If no coins were won 0 is returned
   return coins;

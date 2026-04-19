@@ -2,9 +2,20 @@
   position: fixed;
   top: 12px;
   right: 12px;
-  background-image: url('images/help.svg');
-  height: min(40px, 10vw);
-  width: min(40px, 10vw);
+  background-image: url('/images/help.svg');
+  height: 40px;
+  width: 40px;
   cursor: pointer;
   z-index: 1;
+}
+
+@media (max-width: 768px), (pointer: coarse) {
+  .help-button {
+    height: 30px;
+    width: 30px;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+  }
 }

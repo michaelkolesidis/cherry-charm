@@ -93,7 +93,7 @@ const Reel = forwardRef(
         </group>
       </group>
     );
-  }
+  },
 );
 
 useGLTF.preload('models/reel.glb');

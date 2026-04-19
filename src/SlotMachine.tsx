@@ -25,7 +25,6 @@ import {
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import useGame from './stores/store';
-import devLog from './utils/functions/devLog';
 import segmentToFruit from './utils/functions/segmentToFruit';
 import calculateWin from './utils/functions/calculateWin';
 import { WHEEL_SEGMENT } from './utils/constants';
@@ -58,7 +57,9 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
     end,
     addSpin,
     bet,
+    appliedBet,
     updateCoins,
+    validateBet,
   } = useGame((state) => state);
 
   const reelRefs = [
@@ -69,19 +70,31 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
 
   const [, setStoppedReels] = useState(0);
 
+  /**
+   * Finalize round: calculate winnings, add to coins,
+   * and THEN validate if the bet is still affordable.
+   */
   useEffect(() => {
-    devLog('PHASE: ' + phase);
-    if (phase === 'idle') {
-      const coinsWon = calculateWin(fruit0, fruit1, fruit2) * bet;
+    if (phase === 'idle' && fruit0 !== '' && fruit1 !== '' && fruit2 !== '') {
+      const coinsWon = calculateWin(fruit0, fruit1, fruit2) * appliedBet;
       setWin(coinsWon);
       updateCoins(coinsWon);
+      validateBet(); // Check affordability after coins are added back
     }
-  }, [phase, fruit0, fruit1, fruit2, bet, setWin, updateCoins]);
+  }, [
+    phase,
+    fruit0,
+    fruit1,
+    fruit2,
+    appliedBet,
+    setWin,
+    updateCoins,
+    validateBet,
+  ]);
 
   const handleSpinAction = useCallback(() => {
     const currentState = useGame.getState();
 
-    // Prevent spinning if already spinning or if balance is too low
     if (
       currentState.phase === 'spinning' ||
       currentState.coins < currentState.bet
@@ -89,25 +102,23 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
       return;
     }
 
-    // Deduct the cost immediately
-    updateCoins(-bet);
+    const currentBetAmount = currentState.bet;
+
+    start(currentBetAmount);
+    updateCoins(-currentBetAmount);
     addSpin();
 
-    // Reset the machine state
     setWin(0);
-    start();
     setStoppedReels(0);
+    setFruit0('');
+    setFruit1('');
+    setFruit2('');
 
     const min = 10;
     const max = 35;
     const getRandomStopSegment = () =>
       Math.floor(Math.random() * (max - min + 1)) + min;
 
-    setFruit0('');
-    setFruit1('');
-    setFruit2('');
-
-    // Set up reel animations
     for (let i = 0; i < 3; i++) {
       const reel = reelRefs[i].current;
       if (reel) {
@@ -119,16 +130,7 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
         reel.isSnapping = false;
       }
     }
-  }, [
-    bet,
-    updateCoins,
-    addSpin,
-    setWin,
-    start,
-    setFruit0,
-    setFruit1,
-    setFruit2,
-  ]);
+  }, [updateCoins, addSpin, setWin, start, setFruit0, setFruit1, setFruit2]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -137,7 +139,6 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
         handleSpinAction();
       }
     };
-
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, [handleSpinAction]);
@@ -169,30 +170,20 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
           reel.targetRotationX,
           0.2,
         );
-
         if (Math.abs(reel.rotation.x - reel.targetRotationX) < 0.01) {
           reel.rotation.x = reel.targetRotationX;
-
           const fruit = segmentToFruit(i, reel.reelSpinUntil);
           if (fruit) {
             if (i === 0) setFruit0(fruit);
             if (i === 1) setFruit1(fruit);
             if (i === 2) setFruit2(fruit);
           }
-
-          devLog(
-            `Reel ${i + 1} stopped at segment ${reel.reelSpinUntil} (${fruit})`,
-          );
-
           reel.reelSpinUntil = undefined;
           reel.isSnapping = false;
-
           setStoppedReels((prev) => {
             const newStopped = prev + 1;
             if (newStopped === 3) {
-              setTimeout(() => {
-                end();
-              }, 1000);
+              setTimeout(() => end(), 1000);
             }
             return newStopped;
           });
@@ -201,9 +192,7 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
     }
   });
 
-  useImperativeHandle(ref, () => ({
-    reelRefs,
-  }));
+  useImperativeHandle(ref, () => ({ reelRefs }));
 
   const [buttonZ, setButtonZ] = useState(0);
   const [buttonY, setButtonY] = useState(-13);
@@ -242,9 +231,7 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
         position={[0, buttonY, buttonZ]}
         rotation={[-Math.PI / 8, 0, 0]}
         onClick={(e) => {
-          if (e.target instanceof HTMLElement) {
-            e.target.blur();
-          }
+          if (e.target instanceof HTMLElement) e.target.blur();
           handleSpinAction();
         }}
         onPointerDown={() => {

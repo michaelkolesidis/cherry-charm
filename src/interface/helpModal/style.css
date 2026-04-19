@@ -26,10 +26,10 @@
 }
 
 .modal-text {
-  font-family: 'Inter', sans-serif;
+  font-weight: 500;
   margin: 1vh 0;
   text-align: left;
-  font-size: min(3vw, 15px);
+  font-size: min(3.5vw, 15px);
   text-align: center;
   max-width: 30ch;
   display: flex;
@@ -43,7 +43,7 @@
 }
 
 .modal-source {
-  font-size: min(2vw, 12px);
+  font-size: min(2.75vw, 14px);
 }
 
 span {
@@ -65,19 +65,22 @@ button {
   margin-bottom: 20px;
   font-size: 1.2em;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
 }
 
 a,
 a:active,
 a:visited {
   text-decoration: none;
-
   color: #000;
-  font-family: 'Inter', sans-serif;
+  font-weight: 500;
 }
 
 .modeal-link {
-  font-family: 'Inter', sans-serif;
+  font-weight: 500;
 }
 
 a:hover {

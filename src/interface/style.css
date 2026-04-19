@@ -8,18 +8,19 @@
 
 #logo-section {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  width: 100%;
   position: fixed;
   top: 0;
   left: 0;
   z-index: 1;
   margin: 0.5em;
+  pointer-events: none;
 }
 
 .logo {
-  width: min(300px, 25vw);
-  transform: rotate(-5deg);
-  cursor: pointer;
+  width: 300px;
+  transform: rotate(-3deg);
 }
 
 #version {
@@ -41,12 +42,19 @@
   bottom: 0;
   left: 0;
   margin: 1em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 
-.win-number {
-  font-size: min(65px, 10vw);
-  text-shadow: min(5px, 1vw) min(5px, 1vw) 0px #6913c5;
-  width: 400px;
+.win-label,
+.win-amount {
+  font-size: 65px;
+}
+
+.win-amount {
+  margin-left: 20px;
 }
 
 .bet-section {
@@ -55,8 +63,7 @@
   text-align: center;
   margin: auto auto 0.2em auto;
   width: 100%;
-  font-size: min(65px, 10vw);
-  text-shadow: min(5px, 1vw) min(5px, 1vw) 0px #6913c5;
+  font-size: 65px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -70,7 +77,7 @@
 }
 
 .bet-amount {
-  width: 120px;
+  width: 180px;
   white-space: nowrap;
   text-align: center;
 }
@@ -86,12 +93,11 @@
 
 .bet-control {
   margin: 0;
-  font-size: 50px;
-  line-height: 31px;
-  text-shadow: none;
+  font-size: 70px;
+  line-height: 40px;
+  text-align: center;
   cursor: pointer;
   pointer-events: all;
-  text-shadow: min(5px, 1vw) 0 0px #6913c5;
 }
 
 .bet-control:hover {
@@ -109,14 +115,61 @@
 }
 
 .coins-number {
-  font-size: min(65px, 10vw);
+  font-size: 65px;
   width: 400px;
   text-align: right;
-  text-shadow: min(5px, 1vw) min(5px, 1vw) 0px #6913c5;
 }
 
 .coins-image {
   margin-top: 1vw;
   margin-left: 1vw;
-  width: min(65px, 10vw);
+  width: 65px;
+}
+
+@media (max-width: 768px), (pointer: coarse) {
+  .logo {
+    width: 175px;
+    transform: rotate(-3deg);
+  }
+
+  .win-label,
+  .win-amount {
+    font-size: 35px;
+  }
+
+  .win-amount {
+    margin-left: 10px;
+  }
+
+  .bet-section {
+    font-size: 35px;
+    bottom: 60px;
+  }
+
+  .bet-amount {
+    width: 90px;
+  }
+
+  .bet-control {
+    font-size: 50px;
+    line-height: 30px;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+  }
+
+  #bet-controls {
+    margin-left: 0;
+  }
+
+  .coins-number {
+    font-size: 35px;
+    width: 400px;
+  }
+
+  .coins-image {
+    margin-left: 1vw;
+    width: 35px;
+  }
 }

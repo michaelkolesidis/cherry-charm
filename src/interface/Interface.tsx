@@ -22,7 +22,7 @@ import './style.css';
 
 const Interface = () => {
   const { modal, coins, win, bet, phase, updateBet } = useGame(
-    (state) => state
+    (state) => state,
   );
   const animatedCoins = useAnimatedNumber(coins);
   return (
@@ -35,14 +35,8 @@ const Interface = () => {
 
       {/* Logo */}
       <div id="logo-section">
-        <a
-          href="https://github.com/michaelkolesidis/cherry-charm"
-          target="_blank"
-        >
-          <img className="logo" src="./images/logo.png" alt="" />
-        </a>
-
-        <div id="version">{__APP_VERSION__}</div>
+        <img className="logo" src="./images/logo.png" alt="" />
+        {/* <div id="version">{__APP_VERSION__}</div> */}
       </div>
 
       <div className="interface">
@@ -54,7 +48,7 @@ const Interface = () => {
 
         {/* Bet */}
         <div className="bet-section">
-          <div className="bet-label">BET:</div>
+          <div className="bet-label">BET</div>
           <div className="bet-amount">{bet}</div>
           <div id="bet-controls" className={phase === 'idle' ? '' : 'hidden'}>
             <div
@@ -62,21 +56,22 @@ const Interface = () => {
               className="bet-control"
               onClick={() => updateBet(1)}
             >
-              ⏶
+              +
             </div>
             <div
               id="decrease-bet"
               className="bet-control"
               onClick={() => updateBet(-1)}
             >
-              ⏷
+              -
             </div>
           </div>
         </div>
 
         {/* Spins */}
         <div className="win-section">
-          <div className="win-number">WIN: {win}</div>
+          <div className="win-label">WIN </div>
+          <div className="win-amount">{win}</div>
         </div>
       </div>
     </>
