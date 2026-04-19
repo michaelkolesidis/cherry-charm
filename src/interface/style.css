@@ -121,7 +121,6 @@
 }
 
 .coins-image {
-  margin-top: 1vw;
   margin-left: 1vw;
   width: 65px;
 }
@@ -170,6 +169,6 @@
 
   .coins-image {
     margin-left: 1vw;
-    width: 35px;
+    width: 30px;
   }
 }

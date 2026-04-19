@@ -3,7 +3,7 @@
 * {
   margin: 0;
   padding: 0;
-  font-family: "Nunito", sans-serif;
+  font-family: 'Nunito', sans-serif;
   font-weight: 900;
   user-select: none;
   -moz-user-drag: none;
@@ -24,4 +24,51 @@ body,
   left: 0;
   width: 100%;
   height: 100%;
+}
+
+.site-logo {
+  z-index: 1;
+  left: 10px;
+  position: absolute;
+  top: 10px;
+  width: 220px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#mobile-logo {
+  display: none;
+}
+
+.site-logo-img {
+  width: 100%;
+  -webkit-user-drag: none;
+}
+
+@media screen and (max-width: 600px) {
+  .site-logo {
+    opacity: 0.85;
+    width: 50px;
+  }
+
+  #mobile-logo {
+    display: block;
+  }
+
+  #desktop-logo {
+    display: none;
+  }
+}
+
+@media (hover: hover) {
+  .site-logo:hover {
+    transform: scale(1.033);
+  }
+  .site-logo:active {
+    transform: scale(1);
+  }
+}
+
+.site-logo:focus {
+  outline: none;
 }
