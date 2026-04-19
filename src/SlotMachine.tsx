@@ -56,7 +56,6 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
     start,
     end,
     addSpin,
-    bet,
     appliedBet,
     updateCoins,
     validateBet,
@@ -72,7 +71,7 @@ const SlotMachine = forwardRef(({ value }: SlotMachineProps, ref) => {
 
   /**
    * Finalize round: calculate winnings, add to coins,
-   * and THEN validate if the bet is still affordable.
+   * and validate if the bet is still affordable.
    */
   useEffect(() => {
     if (phase === 'idle' && fruit0 !== '' && fruit1 !== '' && fruit2 !== '') {
