@@ -18,7 +18,7 @@ import { create } from 'zustand';
 import { subscribeWithSelector } from 'zustand/middleware';
 import { Fruit } from '../utils/enums';
 
-const BET_TIERS = [1, 5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 200];
+const BET_TIERS = [1, 5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 200, 500];
 
 type State = {
   isMobile: boolean;

@@ -9,6 +9,7 @@ const App = () => {
   return (
     <>
       <Interface />
+      <div id="overlay"></div>
       <Canvas
         camera={{ fov: 75, position: [0, 0, isMobile ? 40 : 30] }}
         gl={{ alpha: true }}
