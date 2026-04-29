@@ -21,6 +21,7 @@
 .logo {
   width: 300px;
   transform: rotate(-3deg);
+  filter: drop-shadow(0 0 5px rgb(255, 255, 255));
 }
 
 #version {

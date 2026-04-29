@@ -14,7 +14,7 @@ const Game = () => {
 
   return (
     <>
-      <color args={['#141417']} attach="background" />
+      {/* <color args={['#141417']} attach="background" /> */}
       {/* <Perf position="top-right" /> */}
       <OrbitControls />
       <Lights />

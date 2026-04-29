@@ -9,7 +9,11 @@ const App = () => {
   return (
     <>
       <Interface />
-      <Canvas camera={{ fov: 75, position: [0, 0, isMobile ? 40 : 30] }}>
+      <Canvas
+        camera={{ fov: 75, position: [0, 0, isMobile ? 40 : 30] }}
+        gl={{ alpha: true }}
+        style={{ background: 'transparent' }}
+      >
         <Game />
       </Canvas>
     </>
